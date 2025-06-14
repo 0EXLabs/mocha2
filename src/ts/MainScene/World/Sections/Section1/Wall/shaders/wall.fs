@@ -13,9 +13,11 @@ void main( void ) {
 
 	vec3 sceneCol = texture2D( tex, vUv ).xyz;
 
-	vec4 n1 = texture2D( uNoiseTex, vUv * 0.05 + time * 0.01);
-	vec4 noise = texture2D( uNoiseTex, vUv * 0.3 + n1.xy * 0.1 );
-	vec3 noiseCol = hsv2rgb( vec3( 0.2 + noise.x * 0.9, smoothstep( 0.2, 0.70, noise.z ) * 0.9, 1.0 ) ) * 1.8;
+	vec4 n1 = texture2D( uNoiseTex, vUv * 0.5 + time * 0.01);
+	vec4 noise = texture2D( uNoiseTex, vUv * 0.3 + n1.xy * 0.5 );
+	vec3 noiseCol = hsv2rgb( vec3( 0.0, // Set hue to 0.0 for red
+                               smoothstep( 0.2, 0.70, noise.z ) * 0.9, // Saturation (can be slightly adjusted if too dull)
+                               1.0 ) ) * 1.8; // Value (brightness)
 
 	vec3 col = mix( noiseCol, sceneCol, vTexBlend );
 

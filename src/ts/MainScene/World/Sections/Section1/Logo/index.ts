@@ -58,9 +58,7 @@ export class Logo {
 			position: new THREE.Vector3( - 1.5, - 2.3, 0.0 )
 		};
 
-		this.meshList.find( item => item.mesh.name == 'LogoPart_5' )!.spTransform = {
-			position: new THREE.Vector3( - 2.0, - 3.0, 0.0 )
-		};
+		
 
 	}
 

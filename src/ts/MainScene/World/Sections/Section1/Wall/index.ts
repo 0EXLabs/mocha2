@@ -78,15 +78,31 @@ export class Wall extends THREE.Object3D {
 		let res = new THREE.Vector2( globalSize.x, globalSize.y ).multiplyScalar( 5 ).round();
 		let size = new THREE.Vector2( globalSize.x / res.x, globalSize.y / res.y );
 
+		const heartShape = new THREE.Shape();
+		const x = 0, y = 0;
+		heartShape.moveTo( x + 5, y + 5 );
+		heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+		heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+		heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+		heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+		heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+		heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+
+		const extrudeSettings = {
+			depth: globalSize.z,
+			bevelEnabled: false
+		};
+
 		for ( let i = 0; i < res.x; i ++ ) {
 
 			for ( let j = 0; j < res.y; j ++ ) {
 
-				let geo = new THREE.BoxGeometry( size.x, size.y, globalSize.z );
+				let geo = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );
+				geo.scale( size.x / 16, size.y / 19, 1 ); // Scale to fit the original box dimensions
 
 				let uv = geo.getAttribute( 'uv' );
-				uv.applyMatrix4( new THREE.Matrix4().makeScale( 1.0 / res.x, 1.0 / res.y, 1 ) );
-				uv.applyMatrix4( new THREE.Matrix4().makeTranslation( 1.0 / res.x * i, 1.0 / res.y * j, 0.0 ) );
+				uv.applyMatrix4( new THREE.Matrix4().makeScale( 5.0 / res.x, 5.0 / res.y, 5 ) );
+				uv.applyMatrix4( new THREE.Matrix4().makeTranslation( 5.0 / res.x * i, 5.0 / res.y * j, 0.0 ) );
 
 				let boxBody = new CANNON.Body( {
 					mass: 1,
@@ -118,7 +134,7 @@ export class Wall extends THREE.Object3D {
 				boxBody.name = i + '-' + j;
 				boxBody.position.set( pos.x, pos.y, pos.z );
 				boxBody.quaternion.copy( mesh.quaternion as unknown as CANNON.Quaternion );
-				boxBody.addShape( new CANNON.Box( new CANNON.Vec3( size.x / 2, size.y / 2, globalSize.z ) ) );
+				boxBody.addShape( new CANNON.Box( new CANNON.Vec3( size.x / 2, size.y / 2, globalSize.z / 2 ) ) );
 
 				this.cannonWorld.addBody( boxBody );
 
@@ -169,6 +185,17 @@ export class Wall extends THREE.Object3D {
 			} );
 
 			this.physics.length = 0;
+
+		} );
+
+	}
+
+	public switchVisibility( visible: boolean ) {
+
+		this.animator.animate( 'wallVisibility', visible ? 1 : 0, 1, () => {
+
+			this.visible = visible;
+			this.animating = visible;
 
 		} );
 

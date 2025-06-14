@@ -18,7 +18,7 @@ export class Logo extends EventEmitter {
 
 	private logoMesh: THREE.Mesh;
 	private lineMesh: THREE.Mesh;
-	private isMesh: THREE.Mesh;
+	
 	private imagingMesh: THREE.Mesh;
 
 	private canceled: boolean = false;
@@ -87,17 +87,7 @@ export class Logo extends EventEmitter {
 
 		// isMesh
 
-		this.isMesh = this.logoMesh.getObjectByName( 'LogoIs' ) as THREE.Mesh;
-		this.isMesh.material = new THREE.ShaderMaterial( {
-			fragmentShader: logoIsFrag,
-			vertexShader: logoIsVert,
-			uniforms: ORE.UniformsLib.mergeUniforms( this.commonUniforms, {
-				uNum: {
-					value: 2
-				}
-			} ),
-			transparent: true,
-		} );
+		
 
 		// imaging
 
@@ -164,7 +154,7 @@ export class Logo extends EventEmitter {
 		await this.animator.animate( 'introLogoVisibility', 0, 1 );
 
 		this.logoMesh.visible = false;
-		this.isMesh.visible = false;
+		
 		this.lineMesh.visible = false;
 		this.imagingMesh.visible = false;
 

@@ -8,7 +8,7 @@ varying vec2 vUv;
 
 void main( void ) {
 
-	vec4 col = vec4( 1.0, 1.0, 1.0, 1.0 );
+	vec4 col = vec4( 0.847,0.635,0.392, 1.0 );
 
 	vec4 noise = texture2D( uNoiseTex, vUv );
 
