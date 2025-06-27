@@ -6,7 +6,8 @@ import { IntroGrid } from './IntroGrid';
 import { IntroText } from './IntroText';
 import EventEmitter from 'wolfy87-eventemitter';
 import { IntroUI } from './IntroUI';
-
+import logoVert from './Logo/shaders/cloud.vs';
+import logoFrag from './Logo/shaders/cloud.fs';
 export class Intro extends EventEmitter {
 
 	private commonUniforms: ORE.Uniforms;
@@ -108,9 +109,9 @@ export class Intro extends EventEmitter {
 			Text1
 		-------------------------------*/
 
-		this.text1 = new IntroText( this.scene.getObjectByName( 'Text1' ) as THREE.Object3D, this.commonUniforms, 'アイデアとテクノロジーで、世界をもっとハッピーでワクワクしたものに。', document.querySelector( '.intro-text-item.introText1' ) as HTMLElement );
-		this.text2 = new IntroText( this.scene.getObjectByName( 'Text2' ) as THREE.Object3D, this.commonUniforms, '理想を現実に。ジュニは、そんな思いで全員でものづくりを行っています。', document.querySelector( '.intro-text-item.introText2' ) as HTMLElement );
-		this.text3 = new IntroText( this.scene.getObjectByName( 'Text3' ) as THREE.Object3D, this.commonUniforms, 'そんなジュニのものづくりの理想を、少し、覗いてみませんか？', document.querySelector( '.intro-text-item.introText3' ) as HTMLElement );
+		this.text1 = new IntroText( this.scene.getObjectByName( 'Text1' ) as THREE.Object3D, this.commonUniforms, 'HELLO', document.querySelector( '.intro-text-item.introText1' ) as HTMLElement );
+		this.text2 = new IntroText( this.scene.getObjectByName( 'Text2' ) as THREE.Object3D, this.commonUniforms, 'TO', document.querySelector( '.intro-text-item.introText2' ) as HTMLElement );
+		this.text3 = new IntroText( this.scene.getObjectByName( 'Text3' ) as THREE.Object3D, this.commonUniforms, 'YOU', document.querySelector( '.intro-text-item.introText3' ) as HTMLElement );
 
 		/*-------------------------------
 			Scene
@@ -140,31 +141,70 @@ export class Intro extends EventEmitter {
 		/*-------------------------------
 			Layout
 		-------------------------------*/
-
-		this.layoutControllerList.push( new ORE.LayoutController( this.scene.getObjectByName( 'Wave_Left' )!, {
-			position: new THREE.Vector3( 1.7, 0.4, 0.0 )
-		} ) );
-
-		this.layoutControllerList.push( new ORE.LayoutController( this.scene.getObjectByName( 'Cone' )!, {
-			position: new THREE.Vector3( 1.5, - 0.2, 0.0 ),
-			scale: 0.8
-		} ) );
-
-		this.layoutControllerList.push( new ORE.LayoutController( this.scene.getObjectByName( 'Wave_Right' )!, {
-			position: new THREE.Vector3( - 1.5, 0.0, 0.0 ),
-		} ) );
-
-		this.layoutControllerList.push( new ORE.LayoutController( this.scene.getObjectByName( 'Torus' )!, {
-			position: new THREE.Vector3( - 1.5, - 0.5, 0.0 ),
+		
+		const applyShaderMaterial = (objectName: string, offset: number = 0.0) => {
+			const obj = this.scene.getObjectByName(objectName);
+		
+			if (!obj) {
+				console.warn(`[ShaderDebug] Object "${objectName}" not found in the scene.`);
+				return;
+			}
+		
+			console.log(`[ShaderDebug] Found object "${objectName}":`, obj);
+		
+			obj.traverse(child => {
+				if ((child as THREE.Mesh).isMesh) {
+					const mesh = child as THREE.Mesh;
+					const baseMaterial = mesh.material as THREE.MeshStandardMaterial;
+		
+					console.log(`[ShaderDebug] Applying shader to mesh "${mesh.name}" with base material:`, baseMaterial);
+		
+					const emissiveColor = baseMaterial?.emissive
+						? baseMaterial.emissive.clone().convertLinearToSRGB()
+						: new THREE.Color(0xffffff);
+		
+					if (!baseMaterial?.emissive) {
+						console.warn(`[ShaderDebug] Mesh "${mesh.name}" does not have an emissive color. Defaulting to white.`);
+					}
+		
+					const shaderMat = new THREE.ShaderMaterial({
+						vertexShader: logoVert,
+						fragmentShader: logoFrag,
+						uniforms: ORE.UniformsLib.mergeUniforms(this.commonUniforms, {
+							uColor: { value: emissiveColor },
+							uMatCapTex: window.gManager.assetManager.getTex('matCapCloud'),
+							num: { value: 1.0 - offset }
+						}),
+						side: THREE.DoubleSide,
+						transparent: false
+					});
+		
+					mesh.material = shaderMat;
+		
+					console.log(`[ShaderDebug] Shader material applied to "${mesh.name}"`);
+				}
+			});
+		};
+		
+		
+		// ✅ Apply to each object
+		applyShaderMaterial('Wave_Left', 0.1);
+		applyShaderMaterial('Wave_Right', 0.2);
+		applyShaderMaterial('Cube', 0.3);
+		
+		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Left')!, {
+			position: new THREE.Vector3(1.7, 0.4, 0.0)
+		}));
+		
+		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Right')!, {
+			position: new THREE.Vector3(-1.5, 0.0, 0.0)
+		}));
+		
+		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Cube')!, {
+			position: new THREE.Vector3(-1.0, -0.5, 0.0),
 			scale: 0.6
-		} ) );
-
-		this.layoutControllerList.push( new ORE.LayoutController( this.scene.getObjectByName( 'Cube' )!, {
-			position: new THREE.Vector3( - 1.0, - 0.5, 0.0 ),
-			scale: 0.6
-		} ) );
-
-	}
+		}));
+	}		
 
 	public hover( args: ORE.TouchEventArgs ) {
 

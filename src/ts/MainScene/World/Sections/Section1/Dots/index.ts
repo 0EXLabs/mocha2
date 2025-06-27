@@ -48,6 +48,9 @@ export class Dots {
 						},
 						num: {
 							value: index / this.root.children.length
+						},
+						uTex: {
+							value: window.gManager.assetManager.getTex( 'sec1bg' ).value
 						}
 					} ),
 					side: THREE.DoubleSide,

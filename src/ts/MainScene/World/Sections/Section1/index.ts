@@ -17,7 +17,7 @@ export class Section1 extends Section {
 
 	private bakuStartPos: THREE.Vector3;
 	private bakuGoalPos: THREE.Vector3;
-
+	private ambientLight?: THREE.AmbientLight;
 	private cannonWorld: CANNON.World;
 	private bakuCollision: BakuCollision;
 
@@ -53,7 +53,7 @@ export class Section1 extends Section {
 		this.cameraSPFovWeight = 25;
 
 		// baku
-
+		this.bakuParam.materialType = 'line';
 		this.bakuStartPos = new THREE.Vector3();
 		this.bakuGoalPos = new THREE.Vector3();
 
@@ -70,19 +70,20 @@ export class Section1 extends Section {
 		/*-------------------------------
 			Light
 		-------------------------------*/
-
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.15 );
+		this.add( this.ambientLight );
 		this.light1Data = {
-			intensity: 1,
-			position: new THREE.Vector3( 1.0, 1.0, 1.0 ),
+			intensity: 0.2,
+			position: new THREE.Vector3( -2.0, 1.0, 1.0 ),
 			targetPosition: new THREE.Vector3( 0, 0, 0 ),
 		};
 
 		this.light2Data = {
-			intensity: 1,
-			position: new THREE.Vector3( 3, - 1, 1 ),
+			intensity: 0.5,
+			position: new THREE.Vector3( 1, 1, 1 ),
 			targetPosition: new THREE.Vector3( 0, 0, 0 ),
 		};
-
+		
 		/*-------------------------------
 			Physics
 		-------------------------------*/
@@ -137,56 +138,56 @@ export class Section1 extends Section {
 			crosses
 		-------------------------------*/
 
-		this.crosses = new Crosses( this.getObjectByName( 'Crosses' ) as THREE.Object3D, this.commonUniforms );
-		this.crosses.switchVisibility( this.sectionVisibility );
+		// this.crosses = new Crosses( this.getObjectByName( 'Crosses' ) as THREE.Object3D, this.commonUniforms );
+		// this.crosses.switchVisibility( this.sectionVisibility );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.crosses.root.getObjectByName( 'Cross_Right' )!, {
-			position: new THREE.Vector3( - 0.3, 0.4, 0.0 ),
-			scale: 0.8
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.crosses.root.getObjectByName( 'Cross_Right' )!, {
+		// 	position: new THREE.Vector3( - 0.3, 0.4, 0.0 ),
+		// 	scale: 0.8
+		// } ) );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.crosses.root.getObjectByName( 'Cross_Left' )!, {
-			position: new THREE.Vector3( 0.4, - 0.6, 0.0 ),
-			scale: 0.8
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.crosses.root.getObjectByName( 'Cross_Left' )!, {
+		// 	position: new THREE.Vector3( 0.4, - 0.6, 0.0 ),
+		// 	scale: 0.8
+		// } ) );
 
 		/*-------------------------------
 			Gradations
 		-------------------------------*/
 
-		this.gradation = new Gradation( this.getObjectByName( 'Gradations' ) as THREE.Object3D, this.commonUniforms );
-		this.gradation.switchVisibility( this.sectionVisibility );
+		// this.gradation = new Gradation( this.getObjectByName( 'Gradations' ) as THREE.Object3D, this.commonUniforms );
+		// this.gradation.switchVisibility( this.sectionVisibility );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.gradation.root.getObjectByName( 'Gradation_RightTop' )!, {
-			position: new THREE.Vector3( - 3.0, 2.0, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.gradation.root.getObjectByName( 'Gradation_RightTop' )!, {
+		// 	position: new THREE.Vector3( - 3.0, 2.0, 0.0 )
+		// } ) );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.gradation.root.getObjectByName( 'Gradation_LeftBottom' )!, {
-			position: new THREE.Vector3( 3.0, - 4.0, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.gradation.root.getObjectByName( 'Gradation_LeftBottom' )!, {
+		// 	position: new THREE.Vector3( 3.0, - 4.0, 0.0 )
+		// } ) );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.gradation.root.getObjectByName( 'Gradation_RightBottom' )!, {
-			position: new THREE.Vector3( - 2.0, - 3.0, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.gradation.root.getObjectByName( 'Gradation_RightBottom' )!, {
+		// 	position: new THREE.Vector3( - 2.0, - 3.0, 0.0 )
+		// } ) );
 
 		/*-------------------------------
 			Lines
 		-------------------------------*/
 
-		this.lines = new Lines( this.getObjectByName( 'Lines' ) as THREE.Object3D, this.commonUniforms );
-		this.lines.switchVisibility( this.viewing );
+		// this.lines = new Lines( this.getObjectByName( 'Lines' ) as THREE.Object3D, this.commonUniforms );
+		// this.lines.switchVisibility( this.viewing );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.lines.root, {
-			scale: 0.6,
-			position: new THREE.Vector3( 0.0, - 0.2, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.lines.root, {
+		// 	scale: 0.6,
+		// 	position: new THREE.Vector3( 0.0, - 0.2, 0.0 )
+		// } ) );
 
 		/*-------------------------------
 			Slash
 		-------------------------------*/
 
-		this.slashes = new Slashes( this.getObjectByName( 'Slashes' ) as THREE.Object3D, this.commonUniforms );
-		this.slashes.switchVisibility( this.sectionVisibility );
+		// this.slashes = new Slashes( this.getObjectByName( 'Slashes' ) as THREE.Object3D, this.commonUniforms );
+		// this.slashes.switchVisibility( this.sectionVisibility );
 
 		/*-------------------------------
 			Dots
@@ -199,13 +200,13 @@ export class Section1 extends Section {
 			position: new THREE.Vector3( - 5.0, 3, 0.0 )
 		} ) );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_RightBottom' )!, {
-			position: new THREE.Vector3( - 2.0, - 1.5, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_RightBottom' )!, {
+		// 	position: new THREE.Vector3( - 2.0, - 1.5, 0.0 )
+		// } ) );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_LeftBottom' )!, {
-			position: new THREE.Vector3( 3.0, - 3.5, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_LeftBottom' )!, {
+		// 	position: new THREE.Vector3( 3.0, - 3.5, 0.0 )
+		// } ) );
 
 		// resize
 
@@ -288,7 +289,7 @@ export class Section1 extends Section {
 
 		if ( baku ) {
 
-			this.bakuGoalPos.copy( baku.position.clone().add( new THREE.Vector3( info.size.portraitWeight * 0.2, 0.0, 0.0 ) ) );
+			this.bakuGoalPos.copy( baku.position.clone().add( new THREE.Vector3( info.size.portraitWeight * 0.1, 0.0, 0.0 ) ) );
 			this.bakuTransform.position.copy( this.bakuStartPos.clone().lerp( this.bakuGoalPos, this.animator.get<number>( 'bakuSplash' ) || 0 ) );
 
 		}
@@ -314,6 +315,7 @@ export class Section1 extends Section {
 
 		super.switchViewingState( viewing );
 
+		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
 		if ( this.logo ) this.logo.switchVisibility( this.sectionVisibility );
 		if ( this.gradation ) this.gradation.switchVisibility( this.sectionVisibility );
 		if ( this.lines ) this.lines.switchVisibility( viewing );

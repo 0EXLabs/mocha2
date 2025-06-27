@@ -29,7 +29,7 @@ void main( void ) {
 	vec4 noise = texture2D( uNoiseTex, vec2( time * 0.5 + modelMatrix[3][0] ) );
 	
 	vBrightness = 0.0;
-	vBrightness += smoothstep( 0.0, 0.4, noise.x ) * 0.9;
+	vBrightness += smoothstep( 0.0, 0.4, noise.x ) * 2.0;
 	vBrightness *= 1.0 - abs( vUv.x - 0.5 ) * 2.0;
 
 	#ifdef IS_ADAPTER

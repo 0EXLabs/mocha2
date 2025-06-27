@@ -14,6 +14,7 @@ export class CursorLight extends THREE.DirectionalLight {
 		super();
 
 		this.goalPos.set( - 1.0, - 1.0, - 0.5 );
+		this.intensity = 5.0;
 
 	}
 

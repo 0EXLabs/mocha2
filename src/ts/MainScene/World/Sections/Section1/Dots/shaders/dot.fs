@@ -1,5 +1,6 @@
 uniform float time;
 uniform float uVisibility;
+uniform sampler2D uTex;
 varying vec2 vUv;
 varying vec3 vPos;
 
@@ -8,7 +9,7 @@ varying vec3 vPos;
 
 void main( void ) {
 
-	vec3 color = vec3( 1.0 );
+	vec3 color = texture2D( uTex, vUv ).rgb;
 	gl_FragColor = vec4( color, 1.0 );
 
 

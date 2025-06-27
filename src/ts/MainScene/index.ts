@@ -87,8 +87,32 @@ export class MainScene extends ORE.BaseLayer {
 				this.footer.changeTimelineSection( sectionIndex + 1 );
 
 				document.body.setAttribute( 'data-section', ( sectionIndex + 1 ).toString() );
+				this.footer.setSectionAttribute( sectionIndex + 1 );
 
 				window.gManager.emitEvent( 'sectionChange', [ section.sectionName ] );
+
+				switch ( sectionIndex ) {
+					case 0:
+						this.footer.changeBackgroundColor( '#B1D37C' ); // Green for Section 1 (index 0)
+						break;
+					case 1:
+						this.footer.changeBackgroundColor( '#FFFFFF' ); // White for Section 2 (index 1)
+						break;
+					case 2:
+						this.footer.changeBackgroundColor( '#0000FF' ); // Blue for Section 3 (index 2)
+						break;
+					case 3:
+						this.footer.changeBackgroundColor( '#808080' ); // Grey for Section 4 (placeholder)
+						break;
+					case 4:
+						this.footer.changeBackgroundColor( '#00FFFF' ); // Cyan for Section 5 (placeholder)
+						break;
+					case 5:
+						this.footer.changeBackgroundColor( '#FF00FF' ); // Magenta for Section 6 (placeholder)
+						break;
+					default:
+						this.footer.changeBackgroundColor( 'rgba(255, 255, 255, 0)' ); // Default transparent
+				}
 
 			}
 
@@ -165,6 +189,7 @@ export class MainScene extends ORE.BaseLayer {
 			{ name: 'introText', path: './assets/textures/intro-text.png', type: 'tex', timing: 'must' },
 			{ name: 'topLogo', path: './assets/textures/top_logo.png', type: 'tex', timing: 'must' },
 			{ name: 'matCap', path: './assets/textures/matcap.png', type: 'tex', timing: 'must' },
+			{ name: 'matCapCloud', path: './assets/textures/matcap2.png', type: 'tex', timing: 'must' },
 			{ name: 'matCapOrange', path: './assets/textures/matcap_orange.png', type: 'tex', timing: 'must' },
 			{ name: 'noise', path: './assets/textures/noise.png', type: 'tex', timing: 'sub', onLoad( value: THREE.Texture ) {
 
@@ -206,6 +231,9 @@ export class MainScene extends ORE.BaseLayer {
 			} },
 			{ name: 'signpen', path: './assets/textures/signpen.png', type: 'tex', timing: 'sub' },
 			{ name: 'sec3Particle', path: './assets/textures/pattern.jpg', type: 'tex', timing: 'sub' },
+			{ name: 'sec1bg', path: './assets/textures/sec1bg.jpg', type: 'tex', timing: 'sub', onLoad: ( t: THREE.Texture ) => {
+				t.flipY = false;
+			} },
 		] } );
 
 		this.gManager.assetManager.addEventListener( 'loadMustAssets', ( e ) => {
@@ -218,10 +246,15 @@ export class MainScene extends ORE.BaseLayer {
 
 			}
 
+			this.onResize();
+
+		} );
+
+		this.gManager.assetManager.addEventListener( 'loadSubAssets', ( e ) => {
+
 			this.initScene();
 
 			this.onResize();
-
 
 		} );
 
@@ -516,6 +549,7 @@ export class MainScene extends ORE.BaseLayer {
 		this.header.switchLogoVisibility( true );
 		this.footer.switchCopyVisibility( true );
 		this.footer.switchTimelineVisibility( true );
+		this.footer.switchVisibility( true );
 
 	}
 

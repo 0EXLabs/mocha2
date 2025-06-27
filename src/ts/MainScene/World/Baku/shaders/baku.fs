@@ -37,7 +37,7 @@ uniform float uTransparent;
 uniform float uLine;
 uniform float uRimLight;
 uniform samplerCube uEnvMap;
-
+uniform vec3 ambientLightColor;
 /*-------------------------------
 	Textures
 -------------------------------*/
@@ -420,6 +420,7 @@ void main( void ) {
 	// output
 	// vec3 outColor = mix( vec3( 0.0 ), vec3( mix( vec3( 1.0 ), mat.diffuseColor, length( mat.diffuseColor ) )  ), uLine );
 	vec3 outColor = vec3( 0.0 );
+	outColor += ambientLightColor * mat.albedo;
 	float outOpacity = mat.opacity;
 
 	/*-------------------------------

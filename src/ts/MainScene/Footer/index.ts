@@ -13,7 +13,7 @@ export class Footer extends EventEmitter {
 		super( );
 
 		this.elm = document.querySelector( '.footer' )!;
-		this.copyElm = this.elm.querySelector( '.footer-copyright' )!;
+		this.copyElm = this.elm.querySelector( '.footer-contract' )!;
 
 		/*-------------------------------
 			Timeline
@@ -46,7 +46,7 @@ export class Footer extends EventEmitter {
 
 		this.switchCopyVisibility( false );
 		this.switchTimelineVisibility( false );
-
+		this.switchVisibility( false );
 	}
 
 	public switchCopyVisibility( visible: boolean ) {
@@ -58,6 +58,11 @@ export class Footer extends EventEmitter {
 	public switchTimelineVisibility( visible: boolean ) {
 
 		this.timelineElm.setAttribute( 'data-visible', visible ? 'true' : 'false' );
+
+	}
+	public switchVisibility( visible: boolean ) {
+
+		this.elm.setAttribute( 'data-visible', visible ? 'true' : 'false' );
 
 	}
 
@@ -76,6 +81,18 @@ export class Footer extends EventEmitter {
 
 		} );
 
+
+	}
+
+	public changeBackgroundColor( color: string ) {
+
+		this.elm.style.backgroundColor = color;
+
+	}
+
+	public setSectionAttribute( sectionNum: number ) {
+
+		this.elm.setAttribute( 'data-section', sectionNum.toString() );
 
 	}
 

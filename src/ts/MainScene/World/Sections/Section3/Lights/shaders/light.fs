@@ -1,4 +1,3 @@
-
 varying vec2 vUv;
 varying float vBrightness;
 
@@ -27,7 +26,7 @@ void main( void ) {
 		refDir.x *= -1.0;
 	
 		vec3 envMapColor = textureCube( uEnvMap, refDir ).xyz;
-		vec3 color = envMapColor * 0.2;
+		vec3 color = envMapColor * 1.0;
 
 		gl_FragColor = vec4( color, uVisibility );
 

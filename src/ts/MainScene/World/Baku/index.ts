@@ -48,6 +48,10 @@ export class Baku extends THREE.Object3D {
 			winResolution: {
 				value: new THREE.Vector2()
 			},
+			roughness: {
+				value: 0.0 // Start with a mid-range value, then adjust
+			},
+			ambientLightColor: { value: new THREE.Color( 0xffffff ) }
 		} );
 
 		/*-------------------------------
@@ -69,7 +73,7 @@ export class Baku extends THREE.Object3D {
 
 		this.commonUniforms.uLine = this.animator.add( {
 			name: 'bakuLine',
-			initValue: 0,
+			initValue: 1,
 			easing: ORE.Easings.easeOutCubic,
 			userData: {
 				pane: {
@@ -174,6 +178,7 @@ export class Baku extends THREE.Object3D {
 				vertexShader: bakuVert,
 				fragmentShader: bakuFrag,
 				uniforms: ORE.UniformsLib.mergeUniforms( this.commonUniforms, {
+					ambientLightColor: { value: new THREE.Color( 0xffffff ) }
 				} ),
 				side: THREE.BackSide,
 				depthWrite: false,
@@ -185,7 +190,7 @@ export class Baku extends THREE.Object3D {
 
 			this.meshLine = new THREE.SkinnedMesh( this.mesh.geometry, lineMat );
 			this.meshLine.skeleton = this.mesh.skeleton;
-			// this.container.add( this.meshLine );
+			this.container.add( this.meshLine );
 
 			/*-------------------------------
 				animation

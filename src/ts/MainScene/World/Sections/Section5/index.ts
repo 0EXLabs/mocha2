@@ -23,7 +23,7 @@ export class Section5 extends Section {
 
 		this.bakuParam.materialType = 'dark';
 		this.bakuParam.rotateSpeed = 0.18;
-		this.ppParam.bloomBrightness = 1.0;
+		this.ppParam.bloomBrightness = 0.0;
 		this.ppParam.vignet = 1.0;
 		this.cameraRange.set( 0.02, 0.02 );
 

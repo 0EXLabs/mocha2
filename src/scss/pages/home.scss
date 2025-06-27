@@ -9,6 +9,11 @@ $roboto: 'Roboto', sans-serif;;
 $robotoSerif: 'Roboto Serif', serif;
 $comfortaa: 'Comfortaa', cursive;
 
+@font-face {
+	font-family: 'gomocha';
+	src: URL('../assets/fonts/GoMocha.ttf') format('truetype');
+  }
+
 .content-wrapper {
 	width: 100%;
 	position: relative;
@@ -45,10 +50,12 @@ body {
 	}
 	
 	&-wrap {
-		position: relative;
+		position: fixed;
 		flex: 1;
 		width: 100%;
 		height: 100%;
+		left: 0;
+		top: 0;
 		
 		canvas {
 			position: absolute;
@@ -68,8 +75,8 @@ body {
 	height: 70px;
 	align-items: center;
 	justify-content: center;
-	z-index: 10;
-background-color: white;
+	z-index: 2;
+background-color: rgba(255, 255, 255, 0);
 	@include sp {
 		height: 50px;
 	}
@@ -97,23 +104,35 @@ background-color: white;
 }
 
 .footer {
-	position: relative;
-	width: 100%;
-	height: 60px;
-	background-color: #f0f0f0;
+	position: fixed;
+	width: 75%;
+	height: 119px;
+	background-color: #B1D37C;
 	color: #fff;
-	padding: 0 6%;
-
+	padding: 0 2%;
+	bottom: 4%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-top:  #2e1c14 5.5px solid ;
+	border-left:  #2e1c14 4px solid ;
+	border-bottom:  #2e1c14 4px solid ;
+	border-right:  #2e1c14 4px solid ;
+	border-radius: 48px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	z-index: 10;
-
+	opacity: 0.0;
+	transition: all 0.2s ease-out, background-color 0.5s ease-in-out;
+	
 	@include sp {
 		height: 50px;
-		padding: 0 5%;
+		padding: 0 3%;
 	}
-
+	&[data-visible="true"] {
+		
+		opacity: 1;
+	}
 	&-timeline {
 	
 		position: relative;
@@ -138,7 +157,7 @@ background-color: white;
 		}
 		
 		&-item {
-			width: 20px;
+			width: 50px;
 			cursor: pointer;
 			position: relative;
 		
@@ -158,15 +177,15 @@ background-color: white;
 				width: 100%;
 				height: 100%;
 				border-radius: 50% 50%;
-				background-color: #fe9ba8;
+				background-color: #4F7C3A;
 				transform: scale(0.3);
-				transition: transform 0.5s ease-out, background-color 0.5s ease-out;
+				transition: transform 0.5s ease-out, background-color 0.5s ease-in-out;
 				z-index: 1;
 			}
 
 			&[data-state="ready" ] {
 				&::after {
-					background-color: #555;
+					background-color: #75AF5B;
 				}
 			}
 			
@@ -174,6 +193,30 @@ background-color: white;
 				pointer-events: none;
 				&::after {
 					transform: scale(0.6);
+				}
+			}
+
+			.footer[data-section="1"] & {
+				&::after {
+					background-color: #4F7C3A;
+				}
+
+				&[data-state="ready"] {
+					&::after {
+						background-color: #75AF5B;
+					}
+				}
+			}
+
+			.footer[data-section="2"] & {
+				&::after {
+					background-color: #FF69B4;
+				}
+
+				&[data-state="ready"] {
+					&::after {
+						background-color: #FFB6C1;
+					}
 				}
 			}
 
@@ -191,7 +234,7 @@ background-color: white;
 		opacity: 0;
 		transition: opacity 2s;
 		text-align: right;
-		font-family: $roboto;	
+	
 		font-size: 8px;
 		letter-spacing: 0.2em;
 		color: #777;
@@ -206,6 +249,60 @@ background-color: white;
 			letter-spacing: 0.01em;
 			padding-left: 2vw;
 			right: 0%;
+		}
+	}
+
+	&-contract {
+		display: flex;
+		align-items: center;
+		gap: 40px;
+		opacity: 0;
+		transition: opacity 2s;
+		@include sp {
+			gap: 10px;
+			
+		}
+		p {
+			font-family: 'gomocha', sans-serif;
+			font-size: 24px;
+			color: #000000;
+			@include sp {
+				font-size: 12px;
+				
+			}
+		}
+		&[data-visible="true"] {
+			opacity: 1;
+		}
+		.presale-button {
+			background-color: #FDECA6;
+			color: black;
+			border-top:  #2e1c14 2px solid ;
+			border-left:  #2e1c14 3px solid ;
+			border-bottom:  #2e1c14 3px solid ;
+			border-right:  #2e1c14 3px solid ;
+			padding: 20px 25px;
+			border-radius: 28px;
+			cursor: pointer;
+			font-size: 24px;
+			text-transform: uppercase;
+			font-family: 'gomocha', sans-serif;
+			@include sp {
+				font-size: 12px;
+				padding: 8px 20px;
+			}
+			&:hover {
+				opacity: 0.8;
+			}
+			transition: background-color 0.5s ease-in-out;
+		}
+		
+		.footer[data-section="1"] & .presale-button {
+			background-color: #FDECA6;
+		}
+
+		.footer[data-section="2"] & .presale-button {
+			background-color: #f9a6c0;
 		}
 	}
 }
@@ -546,7 +643,7 @@ background-color: white;
 	&-link {
 		position: absolute;
 		left: 50%;
-		bottom: 30px;
+		bottom: 80px;
 		transform: translateX(-50%);
 		
 		width: 60%;
@@ -558,6 +655,7 @@ background-color: white;
 		
 		opacity: 0;
 		transition: opacity 1s;
+		z-index: 11;
 		
 		[data-visible="true"] & {
 			
@@ -632,7 +730,7 @@ background-color: white;
 
 .intro {
 
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	height: 100%;
 
@@ -683,20 +781,24 @@ background-color: white;
 	&-skip {
 		position: absolute;
 		right: 55px;
-		bottom: 15px;
+		bottom: 80px;
 		color: #fff;
 
 		transform: translateX(250%);
-		transition: transform .8s;
+		transition: opacity .8s, transform .8s;
 
 		pointer-events: none;
 		-webkit-tap-highlight-color: transparent;
+		z-index: 11;
+		opacity: 0;
+		transform: translateX(250%);
 
 		&[data-skipVisible="true"] {
 			
 			transform: translateX(0);
 			cursor: pointer;
 			pointer-events: auto;
+			opacity: 1;
 			
 		}
 
@@ -782,14 +884,14 @@ background-color: white;
 
 .scroll {
 	position: absolute;
-	bottom: 10px;
+	bottom: 80px;
 	width: 100px;
 	height: 100px;
 	border-radius: 50% 50%;
 	// left: 5%;
 	left: 50%;
 
-	z-index: 1;
+	z-index: 11;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -818,7 +920,7 @@ background-color: white;
 	@include sp {
 		width: 72px;
 		height: 72px;
-		bottom: 20px;
+		bottom: 70px;
 		left: 50%;
 		transform: translateX(-50%);
 	}

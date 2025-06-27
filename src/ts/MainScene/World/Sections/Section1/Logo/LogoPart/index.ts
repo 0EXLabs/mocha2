@@ -33,47 +33,28 @@ export class LogoPart {
 		this.mesh = mesh;
 		let baseMaterial = mesh.material as THREE.MeshStandardMaterial;
 
-		// Handle multiple materials if the mesh has them
-		if ( Array.isArray( this.mesh.material ) ) {
-			const materials = this.mesh.material as THREE.Material[]; // Explicitly cast to array of Material
-			materials.forEach( ( mat, index ) => {
-				materials[ index ] = this.createShaderMaterial( mat as THREE.MeshStandardMaterial );
-			} );
-		} else {
-			this.mesh.material = this.createShaderMaterial( baseMaterial );
-		}
+		let mat = new THREE.ShaderMaterial( {
+			vertexShader: logoVert,
+			fragmentShader: logoFrag,
+			uniforms: ORE.UniformsLib.mergeUniforms( this.commonUniforms, {
+				uColor: {
+					value: baseMaterial.emissive.convertLinearToSRGB()
+				},
+				uMatCapTex: window.gManager.assetManager.getTex( 'matCap' ),
+				num: {
+					value: 1.0 - this.offset
+				}
+			} ),
+			side: THREE.DoubleSide
+		} );
+
+		this.mesh.material = mat;
 
 		this.basePosition = this.mesh.position.clone();
 		this.transformedPosition = this.basePosition.clone();
 		this.transformedWorldPosition = this.mesh.getWorldPosition( new THREE.Vector3() );
 		this.velocity = new THREE.Vector3();
 
-	}
-
-	private createShaderMaterial( baseMaterial: THREE.MeshStandardMaterial ): THREE.ShaderMaterial {
-		const animator = window.gManager.animator;
-		const uniforms = ORE.UniformsLib.mergeUniforms( this.commonUniforms, {
-			uColor: {
-				value: baseMaterial.emissive ? baseMaterial.emissive.convertLinearToSRGB() : new THREE.Color( 0xffffff )
-			},
-			uMatCapTex: window.gManager.assetManager.getTex( 'matCap' ),
-			num: {
-				value: 1.0 - this.offset
-			},
-			uVisibility: animator.add( {
-				name: 'sec1LogoVisibility',
-				initValue: 0,
-				easing: ORE.Easings.linear
-			} ),
-		} );
-
-		return new THREE.ShaderMaterial( {
-			vertexShader: logoVert,
-			fragmentShader: logoFrag,
-			uniforms: uniforms,
-			side: THREE.DoubleSide,
-			transparent: true // Crucial for visibility animation
-		} );
 	}
 
 

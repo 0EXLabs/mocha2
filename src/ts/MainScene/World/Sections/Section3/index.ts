@@ -20,6 +20,9 @@ export class Section3 extends Section {
 	private renderer: THREE.WebGLRenderer;
 	private particle?: Sec3Particle;
 
+	private ambientLight?: THREE.AmbientLight;
+	private mainDirectionalLight?: THREE.DirectionalLight;
+
 	private info?: ORE.LayerInfo;
 
 	constructor( manager: THREE.LoadingManager, parentUniforms: ORE.Uniforms, renderer: THREE.WebGLRenderer ) {
@@ -34,7 +37,7 @@ export class Section3 extends Section {
 
 		this.renderer = renderer;
 		this.elm = document.querySelector( '.section3' ) as HTMLElement;
-		this.ppParam.bloomBrightness = 1.5;
+		this.ppParam.bloomBrightness = 0.0;
 		this.bakuParam.rotateSpeed = 0.0;
 		this.cameraSPFovWeight = 18;
 
@@ -52,6 +55,15 @@ export class Section3 extends Section {
 
 		this.cursorLight = new CursorLight();
 		this.add( this.cursorLight );
+
+		// Added AmbientLight
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.15 );
+		this.add( this.ambientLight );
+
+		// Added DirectionalLight
+		this.mainDirectionalLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
+		this.mainDirectionalLight.position.set( 5, 10, 5 );
+		this.add( this.mainDirectionalLight );
 
 	}
 
@@ -140,6 +152,9 @@ export class Section3 extends Section {
 		if ( this.displays ) this.displays.switchVisibility( this.sectionVisibility );
 
 		if ( this.particle ) this.particle.switchVisibility( this.sectionVisibility );
+
+		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
+		if ( this.mainDirectionalLight ) this.mainDirectionalLight.visible = this.sectionVisibility;
 
 	}
 

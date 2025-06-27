@@ -3,7 +3,7 @@ varying vec2 vUv;
 
 void main( void ) {
 
-	vec3 col = vec3( 1.0 );
+	vec3 col = vec3( 0.631,0.871,0.996 );
 
 	// vec2 glid = step( vec2( 0.985 ), mod( vUv * 20.0, vec2( 1.0, 1.0 ) ) );
 
