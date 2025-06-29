@@ -182,7 +182,7 @@ export class Section extends THREE.Object3D {
 
 			// baku transform
 
-			let baku = gltf.scene.getObjectByName( 'Baku' ) as THREE.Object3D;
+			let baku = gltf.scene.getObjectByName( 'Bakupos' ) as THREE.Object3D;
 
 			if ( baku ) {
 

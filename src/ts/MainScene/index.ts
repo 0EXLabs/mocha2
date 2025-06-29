@@ -99,19 +99,19 @@ export class MainScene extends ORE.BaseLayer {
 						this.footer.changeBackgroundColor( '#FFFFFF' ); // White for Section 2 (index 1)
 						break;
 					case 2:
-						this.footer.changeBackgroundColor( '#0000FF' ); // Blue for Section 3 (index 2)
+						this.footer.changeBackgroundColor( '#FFFFFF' ); // Blue for Section 3 (index 2)
 						break;
 					case 3:
-						this.footer.changeBackgroundColor( '#808080' ); // Grey for Section 4 (placeholder)
+						this.footer.changeBackgroundColor( '#FFFFFF' ); // Grey for Section 4 (placeholder)
 						break;
 					case 4:
-						this.footer.changeBackgroundColor( '#00FFFF' ); // Cyan for Section 5 (placeholder)
+						this.footer.changeBackgroundColor( '#FFFFFF' ); // Cyan for Section 5 (placeholder)
 						break;
 					case 5:
-						this.footer.changeBackgroundColor( '#FF00FF' ); // Magenta for Section 6 (placeholder)
+						this.footer.changeBackgroundColor( '#FFFFFF' ); // Magenta for Section 6 (placeholder)
 						break;
 					default:
-						this.footer.changeBackgroundColor( 'rgba(255, 255, 255, 0)' ); // Default transparent
+						this.footer.changeBackgroundColor( '#ffffff00' ); // Default transparent
 				}
 
 			}

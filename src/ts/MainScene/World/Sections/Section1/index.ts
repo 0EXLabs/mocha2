@@ -193,12 +193,12 @@ export class Section1 extends Section {
 			Dots
 		-------------------------------*/
 
-		this.dots = new Dots( this.getObjectByName( 'Dots' ) as THREE.Object3D, this.commonUniforms );
-		this.dots.switchVisibility( this.sectionVisibility );
+		// this.dots = new Dots( this.getObjectByName( 'Dots' ) as THREE.Object3D, this.commonUniforms );
+		// this.dots.switchVisibility( this.sectionVisibility );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_RightTop' )!, {
-			position: new THREE.Vector3( - 5.0, 3, 0.0 )
-		} ) );
+		// this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_RightTop' )!, {
+		// 	position: new THREE.Vector3( - 5.0, 3, 0.0 )
+		// } ) );
 
 		// this.layoutControllerList.push( new ORE.LayoutController( this.dots.root.getObjectByName( 'Dots_RightBottom' )!, {
 		// 	position: new THREE.Vector3( - 2.0, - 1.5, 0.0 )
@@ -285,7 +285,7 @@ export class Section1 extends Section {
 
 		// baku layout
 
-		let baku = this.getObjectByName( 'Baku' );
+		let baku = this.getObjectByName( 'Bakupos' );
 
 		if ( baku ) {
 

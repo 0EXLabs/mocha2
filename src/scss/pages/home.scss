@@ -122,7 +122,7 @@ background-color: rgba(255, 255, 255, 0);
 	align-items: center;
 	justify-content: space-between;
 	z-index: 10;
-	opacity: 0.0;
+	opacity: 1.0;
 	transition: all 0.2s ease-out, background-color 0.5s ease-in-out;
 	
 	@include sp {
@@ -225,6 +225,63 @@ background-color: rgba(255, 255, 255, 0);
 					transform: scale(0.5);
 				}
 			}
+
+			.footer[data-section="3"] & {
+				&::after {
+					background-color: #FFCD51;
+				}
+
+				&[data-state="ready"] {
+					&::after {
+						background-color: #FCECA6;
+					}
+				}
+			}
+
+			&:hover {
+				&::after {
+					transform: scale(0.5);
+				}
+			}
+
+			
+			.footer[data-section="4"] & {
+				&::after {
+					background-color: #D90000;
+				}
+
+				&[data-state="ready"] {
+					&::after {
+						background-color: #DFB8BC;
+					}
+				}
+			}
+
+			&:hover {
+				&::after {
+					transform: scale(0.5);
+				}
+			}
+
+
+			.footer[data-section="5"] & {
+				&::after {
+					background-color: #A1DEFE;
+				}
+
+				&[data-state="ready"] {
+					&::after {
+						background-color: #D9D9D9;
+					}
+				}
+			}
+
+			&:hover {
+				&::after {
+					transform: scale(0.5);
+				}
+			}
+
 		}
 
 	}
@@ -304,6 +361,23 @@ background-color: rgba(255, 255, 255, 0);
 		.footer[data-section="2"] & .presale-button {
 			background-color: #f9a6c0;
 		}
+
+		.footer[data-section="3"] & .presale-button {
+			background-color: #FFCD53;
+		}
+
+		.footer[data-section="4"] & .presale-button {
+			background-color: #D90000;
+		}
+
+		.footer[data-section="5"] & .presale-button {
+			background-color: #A1DEFE;
+		}
+
+		.footer[data-section="6"] & .presale-button {
+			background-color: #FFCD53;
+		}
+		
 	}
 }
 

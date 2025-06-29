@@ -6,6 +6,7 @@ import { BakuTransform, Section } from './Sections/Section';
 import { Section3 } from './Sections/Section3';
 import { Section4 } from './Sections/Section4';
 import { Baku } from './Baku';
+import { Baku2 } from './Baku2';
 import { Section5 } from './Sections/Section5';
 import { Intro } from './Intro';
 import { Section6 } from './Sections/Section6';
@@ -51,7 +52,7 @@ export class World extends THREE.Object3D {
 	// baku
 
 	private baku: Baku;
-
+	private baku2: Baku2;
 	// trail
 
 	public trail?: DrawTrail;
@@ -175,6 +176,24 @@ export class World extends THREE.Object3D {
 		}, 3500 );
 
 		/*-------------------------------
+			Baku2
+		-------------------------------*/
+
+		this.baku2 = new Baku2( this.manager, this.commonUniforms );
+		this.add( this.baku2 );
+
+		window.setInterval( () => {
+
+			if ( this.section4.sectionVisibility ) {
+
+				this.baku2.jump();
+
+			}
+
+		}, 3500 );
+
+
+		/*-------------------------------
 			Trail
 		-------------------------------*/
 
@@ -225,6 +244,16 @@ export class World extends THREE.Object3D {
 
 		} );
 
+		this.baku2.addEventListener( 'jump', () => {
+
+			setTimeout( () => {
+
+				this.section4.switchText();
+				window.cameraController.shake( 0.08, 0.3, 7 );
+			}, 700 );
+
+		} );
+
 		this.section5 = new Section5( this.manager, this.commonUniforms );
 		this.add( this.section5 );
 		this.sections.push( this.section5 );
@@ -244,6 +273,20 @@ export class World extends THREE.Object3D {
 			}
 
 		};
+
+		this.baku2.onLoaded = () => {
+
+			this.section2.setSceneTex( this.baku2.sceneRenderTarget.texture );
+
+			if ( this.trail ) {
+
+				this.trail.setSceneTex( this.baku2.sceneRenderTarget.texture );
+
+			}
+
+		};
+
+
 
 		/*-------------------------------
 			EnvMap
@@ -365,6 +408,7 @@ export class World extends THREE.Object3D {
 		} );
 
 		this.baku.update( deltaTime );
+		this.baku2.update( deltaTime );
 
 		this.lights.update( deltaTime );
 
