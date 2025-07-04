@@ -15,7 +15,7 @@ export class Section2 extends Section {
 	private title?: Section2Title;
 	private info?: ORE.LayerInfo;
 	private layoutControllerList: ORE.LayoutController[] = [];
-
+	private ambientLight?: THREE.AmbientLight;
 	constructor( manager: THREE.LoadingManager, parentUniforms: ORE.Uniforms ) {
 
 		super( manager, 'section_2', ORE.UniformsLib.mergeUniforms( parentUniforms, {
@@ -31,20 +31,25 @@ export class Section2 extends Section {
 
 		this.elm = document.querySelector( '.section2' ) as HTMLElement;
 
-		this.ppParam.bloomBrightness = 0;
-		this.ppParam.vignet = 1.5;
+		this.ppParam.bloomBrightness = 0.0;
+		this.ppParam.vignet = 0.0;
 		this.bakuParam.rotateSpeed = - 0.09;
+		this.bakuParam2.rotateSpeed = - 0.09;
 		this.bakuParam.materialType = 'glass';
-
+		this.bakuParam2.materialType = 'glass';
+		console.log( this.bakuParam );
+		console.log( this.bakuParam2 );
 		/*-------------------------------
 			Light
 		-------------------------------*/
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.1 );
+		this.add( this.ambientLight );
 
-		this.light1Data = {
-			position: new THREE.Vector3( - 1, 2, 1 ),
-			targetPosition: new THREE.Vector3( 0, 0, 0 ),
-			intensity: 1
-		};
+		// this.light1Data = {
+		// 	position: new THREE.Vector3( - 1, 2, 1 ),
+		// 	targetPosition: new THREE.Vector3( 0, 0, 0 ),
+		// 	intensity: 1
+		// };
 
 	}
 
@@ -146,6 +151,7 @@ export class Section2 extends Section {
 		if ( this.title ) this.title.switchVisibility( this.sectionVisibility );
 		if ( this.transparents ) this.transparents.switchVisibility( this.sectionVisibility );
 		if ( this.flexible ) this.flexible.switchVisibility( this.sectionVisibility );
+		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
 
 	}
 

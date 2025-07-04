@@ -342,8 +342,14 @@ export class World extends THREE.Object3D {
 		// baku
 
 		this.baku.changeRotateSpeed( section.bakuParam.rotateSpeed );
+		console.log("Baku material type for Baku: ", section.bakuParam.materialType);
 		this.baku.changeMaterial( section.bakuParam.materialType );
 		this.baku.changeSectionAction( section.sectionName );
+
+		this.baku2.changeRotateSpeed( section.bakuParam2.rotateSpeed );
+		console.log("Baku material type for Baku2: ", section.bakuParam2.materialType);
+		this.baku2.changeMaterial( section.bakuParam2.materialType );
+		this.baku2.changeSectionAction( section.sectionName );
 
 		//  bg
 
@@ -386,13 +392,24 @@ export class World extends THREE.Object3D {
 			scale: from.bakuTransform.scale.clone().lerp( to.bakuTransform.scale, t ),
 		};
 
+		let baku2Transform: BakuTransform = {
+			position: from.baku2Transform.position.clone().lerp( to.baku2Transform.position, t ),
+			rotation: from.baku2Transform.rotation.clone().slerp( to.baku2Transform.rotation, t ),
+			scale: from.baku2Transform.scale.clone().lerp( to.baku2Transform.scale, t ),
+		};
+
 		this.baku.position.copy( bakuTransform.position );
 		this.baku.scale.copy( bakuTransform.scale );
 		this.baku.quaternion.copy( bakuTransform.rotation );
 
+		this.baku2.position.copy( baku2Transform.position );
+		this.baku2.scale.copy( baku2Transform.scale );
+		this.baku2.quaternion.copy( baku2Transform.rotation );
+
 		return {
 			cameraTransform,
-			bakuTransform
+			bakuTransform,
+			baku2Transform
 		};
 
 	}
@@ -423,6 +440,7 @@ export class World extends THREE.Object3D {
 		this.intro.resize( info );
 
 		this.baku.resize( info );
+		this.baku2.resize( info );
 
 		this.sections.forEach( item => {
 
@@ -441,7 +459,7 @@ export class World extends THREE.Object3D {
 		this.section1.splash();
 
 		this.baku.show();
-
+		this.baku2.show();
 		setTimeout( () => {
 
 			this.section1.switchViewingState( "viewing" );
@@ -466,7 +484,7 @@ export class World extends THREE.Object3D {
 		this.section1.wall.dispose();
 		this.section1.splash();
 		this.baku.show( 0 );
-
+		this.baku2.show( 0 );
 
 	}
 

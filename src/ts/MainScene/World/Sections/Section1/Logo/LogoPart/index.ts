@@ -40,7 +40,9 @@ export class LogoPart {
 				uColor: {
 					value: baseMaterial.emissive.convertLinearToSRGB()
 				},
-				uMatCapTex: window.gManager.assetManager.getTex( 'matCap' ),
+				uTex: {
+					value: baseMaterial.map
+				},
 				num: {
 					value: 1.0 - this.offset
 				}
@@ -63,8 +65,8 @@ export class LogoPart {
 		this.time += deltaTime;
 
 		this.velocity.add( this.transformedPosition.clone().sub( this.mesh.position ).multiplyScalar( deltaTime ) );
-		this.velocity.y += Math.sin( this.time ) * 0.002;
-		this.velocity.multiplyScalar( 0.9 );
+		this.velocity.y += Math.sin( this.time ) * 0.000;
+		this.velocity.multiplyScalar( 0.0 );
 
 		this.mesh.position.add( this.velocity );
 
@@ -77,7 +79,7 @@ export class LogoPart {
 		// @ts-ignore
 		let d = args.screenPosition.distanceTo( new THREE.Vector2( screenPos.x, screenPos.y ) );
 
-		this.velocity.add( new THREE.Vector3( args.delta.x, - args.delta.y ).multiplyScalar( 0.001 * Math.max( 0.0, 1.0 - d * 2.0 ) ) );
+		this.velocity.add( new THREE.Vector3( args.delta.x, - args.delta.y ).multiplyScalar( 0.001 * Math.max( 0.0, 1.0 - d * 0.0 ) ) );
 
 	}
 

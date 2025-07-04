@@ -48,7 +48,7 @@ export class Section1 extends Section {
 
 		this.cameraRange.set( 0.01, 0.01 );
 		this.elm = document.querySelector( '.section1' ) as HTMLElement;
-		this.ppParam.vignet = 0.7;
+		this.ppParam.vignet = 0.0;
 		this.trailDepth = 0.95;
 		this.cameraSPFovWeight = 25;
 
@@ -56,7 +56,7 @@ export class Section1 extends Section {
 		this.bakuParam.materialType = 'line';
 		this.bakuStartPos = new THREE.Vector3();
 		this.bakuGoalPos = new THREE.Vector3();
-
+		this.bakuParam2.materialType = 'line';
 		/*-------------------------------
 			Animator
 		-------------------------------*/
@@ -70,16 +70,16 @@ export class Section1 extends Section {
 		/*-------------------------------
 			Light
 		-------------------------------*/
-		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.15 );
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.17 );
 		this.add( this.ambientLight );
 		this.light1Data = {
-			intensity: 0.2,
+			intensity: 0.0,
 			position: new THREE.Vector3( -2.0, 1.0, 1.0 ),
 			targetPosition: new THREE.Vector3( 0, 0, 0 ),
 		};
 
 		this.light2Data = {
-			intensity: 0.5,
+			intensity: 0.0,
 			position: new THREE.Vector3( 1, 1, 1 ),
 			targetPosition: new THREE.Vector3( 0, 0, 0 ),
 		};

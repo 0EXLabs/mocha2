@@ -42,21 +42,25 @@ export class Logo {
 
 		} );
 
-		this.meshList.find( item => item.mesh.name == 'LogoPart_1' )!.spTransform = {
-			position: new THREE.Vector3( 1, 1.3, 0.0 )
-		};
+		let logoPart1 = this.meshList.find( item => item.mesh.name == 'LogoPart_1' );
+		if (logoPart1) {
+			(logoPart1.mesh.material as THREE.ShaderMaterial).uniforms.uTex.value = window.gManager.assetManager.getTex('carpeBaseColorTex').value;
+			logoPart1.spTransform = {
+				position: new THREE.Vector3( 1, 1.3, 0.0 )
+			};
+		}
 
 		this.meshList.find( item => item.mesh.name == 'LogoPart_2' )!.spTransform = {
 			position: new THREE.Vector3( 1.5, 0.3, 0.0 )
 		};
 
-		this.meshList.find( item => item.mesh.name == 'LogoPart_3' )!.spTransform = {
-			position: new THREE.Vector3( - 0.7, 0.5, 0.0 )
-		};
+		// this.meshList.find( item => item.mesh.name == 'LogoPart_3' )!.spTransform = {
+		// 	position: new THREE.Vector3( - 0.7, 0.5, 0.0 )
+		// };
 
-		this.meshList.find( item => item.mesh.name == 'LogoPart_4' )!.spTransform = {
-			position: new THREE.Vector3( - 1.5, - 2.3, 0.0 )
-		};
+		// this.meshList.find( item => item.mesh.name == 'LogoPart_4' )!.spTransform = {
+		// 	position: new THREE.Vector3( - 1.5, - 2.3, 0.0 )
+		// };
 
 		
 

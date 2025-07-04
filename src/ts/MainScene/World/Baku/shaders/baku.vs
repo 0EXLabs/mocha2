@@ -56,7 +56,7 @@ void main( void ) {
 
 	#ifdef IS_LINE
 
-		transformed += normal * 0.02 * uLine;
+		transformed += normal * 0.01 * uLine;
 	
 	#endif
 	

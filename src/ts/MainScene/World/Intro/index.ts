@@ -146,25 +146,25 @@ export class Intro extends EventEmitter {
 			const obj = this.scene.getObjectByName(objectName);
 		
 			if (!obj) {
-				console.warn(`[ShaderDebug] Object "${objectName}" not found in the scene.`);
+				
 				return;
 			}
 		
-			console.log(`[ShaderDebug] Found object "${objectName}":`, obj);
+			
 		
 			obj.traverse(child => {
 				if ((child as THREE.Mesh).isMesh) {
 					const mesh = child as THREE.Mesh;
 					const baseMaterial = mesh.material as THREE.MeshStandardMaterial;
 		
-					console.log(`[ShaderDebug] Applying shader to mesh "${mesh.name}" with base material:`, baseMaterial);
+					
 		
 					const emissiveColor = baseMaterial?.emissive
 						? baseMaterial.emissive.clone().convertLinearToSRGB()
 						: new THREE.Color(0xffffff);
 		
 					if (!baseMaterial?.emissive) {
-						console.warn(`[ShaderDebug] Mesh "${mesh.name}" does not have an emissive color. Defaulting to white.`);
+						
 					}
 		
 					const shaderMat = new THREE.ShaderMaterial({
@@ -181,7 +181,7 @@ export class Intro extends EventEmitter {
 		
 					mesh.material = shaderMat;
 		
-					console.log(`[ShaderDebug] Shader material applied to "${mesh.name}"`);
+					
 				}
 			});
 		};
@@ -257,12 +257,6 @@ export class Intro extends EventEmitter {
 				await this.text2.start();
 
 				if ( this.finished ) return;
-
-				setTimeout( () => {
-
-					this.ui.switchSkipVisibility( false );
-
-				}, 1000 );
 
 				await this.text3.start( true );
 

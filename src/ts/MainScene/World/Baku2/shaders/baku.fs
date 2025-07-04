@@ -570,6 +570,6 @@ void main( void ) {
 
 	#endif
 
-	gl_FragColor = vec4( outColor, outOpacity );
+	gl_FragColor = vec4( outColor, outOpacity);
 
 }

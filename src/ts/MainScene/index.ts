@@ -175,11 +175,17 @@ export class MainScene extends ORE.BaseLayer {
 
 		super.onBind( );
 
-		this.gManager = new GlobalManager();
+		this.gManager = new GlobalManager( this.renderer );
 
 		this.gManager.assetManager.load( { assets: [
 			{ name: 'commonScene', path: './assets/scene/common.glb', type: "gltf", timing: 'must' },
 			{ name: 'logo', path: './assets/textures/junni_logo.png', type: 'tex', timing: 'must' },
+			{ name: 'carpeBaseColorTex', path: './assets/textures/Carpe_BaseColor.png', type: 'tex', timing: 'must', onLoad: ( t: THREE.Texture ) => {
+				t.encoding = THREE.sRGBEncoding;
+				t.minFilter = THREE.LinearMipmapLinearFilter;
+				t.magFilter = THREE.LinearFilter;
+				t.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+			} },
 			{ name: 'sec2BGText', path: './assets/textures/sec2-bg-text.png', type: 'tex', timing: 'must', onLoad( value: THREE.Texture ) {
 
 				value.wrapS = THREE.RepeatWrapping;
@@ -245,6 +251,8 @@ export class MainScene extends ORE.BaseLayer {
 				this.scene.add( gltf.scene );
 
 			}
+
+			this.renderer.outputEncoding = THREE.sRGBEncoding;
 
 			this.onResize();
 

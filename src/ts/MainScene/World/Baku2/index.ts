@@ -7,7 +7,7 @@ import bakuFrag from './shaders/baku.fs';
 import bakuVert from './shaders/baku.vs';
 import passThroughFrag from './shaders/passThrough.fs';
 
-export type BakuMaterialType = 'normal' | 'glass' | 'line' | 'dark'
+export type BakuMaterialType2 = 'normal' | 'glass' | 'line' | 'dark'
 
 export class Baku2 extends THREE.Object3D {
 
@@ -51,7 +51,8 @@ export class Baku2 extends THREE.Object3D {
 			roughness: {
 				value: 0.0 // Start with a mid-range value, then adjust
 			},
-			ambientLightColor: { value: new THREE.Color( 0xffffff ) }
+			ambientLightColor: { value: new THREE.Color( 0xffffff ) },
+			opacity: { value: 1.0 }
 		} );
 
 		/*-------------------------------
@@ -61,7 +62,7 @@ export class Baku2 extends THREE.Object3D {
 		this.animator = window.gManager.animator;
 
 		this.commonUniforms.uTransparent = this.animator.add( {
-			name: 'bakuTransparent',
+			name: 'bakuTransparent2',
 			initValue: 0,
 			easing: ORE.Easings.easeOutCubic,
 			userData: {
@@ -72,7 +73,7 @@ export class Baku2 extends THREE.Object3D {
 		} );
 
 		this.commonUniforms.uLine = this.animator.add( {
-			name: 'bakuLine',
+			name: 'bakuLine2',
 			initValue: 1,
 			easing: ORE.Easings.easeOutCubic,
 			userData: {
@@ -83,7 +84,7 @@ export class Baku2 extends THREE.Object3D {
 		} );
 
 		this.commonUniforms.uRimLight = this.animator.add( {
-			name: 'bakuRimLight',
+			name: 'bakuRimLight2',
 			initValue: 1,
 			easing: ORE.Easings.easeOutCubic,
 			userData: {
@@ -94,18 +95,18 @@ export class Baku2 extends THREE.Object3D {
 		} );
 
 		this.animator.add( {
-			name: 'bakuIntroRotate',
+			name: 'bakuIntroRotate2',
 			initValue: 1,
 			easing: ORE.Easings.easeOutCubic
 		} );
 
 		this.animator.add( {
-			name: 'bakuRotateSpeed',
+			name: 'bakuRotateSpeed2',
 			initValue: 0.0,
 		} );
 
 		this.animator.add( {
-			name: 'bakuRotateValue',
+			name: 'bakuRotateValue2',
 			initValue: 0,
 			easing: ORE.Easings.easeOutCubic
 		} );
@@ -129,7 +130,7 @@ export class Baku2 extends THREE.Object3D {
 
 		let loader = new GLTFLoader( this.manager );
 
-		loader.load( './assets/scene/baku.glb', ( gltf ) => {
+		loader.load( './assets/scene/baku2.glb', ( gltf ) => {
 
 			let bakuWrap = gltf.scene.getObjectByName( "baku_amature" ) as THREE.Object3D;
 
@@ -204,7 +205,7 @@ export class Baku2 extends THREE.Object3D {
 				let clip = this.animations[ i ];
 
 				this.animator.add( {
-					name: "BakuWeight/" + clip.name,
+					name: "BakuWeight2/" + clip.name,
 					initValue: 1,
 					userData: {
 						pane: {
@@ -245,12 +246,12 @@ export class Baku2 extends THREE.Object3D {
 
 	}
 
-	public changeMaterial( type: BakuMaterialType ) {
+	public changeMaterial( type: BakuMaterialType2 ) {
 
-		this.animator.animate( 'bakuTransparent', type == 'glass' ? 1 : 0, 1 );
-		this.animator.animate( 'bakuLine', type == 'line' ? 1 : 0, 1 );
-		this.animator.animate( 'bakuLine', type == 'line' ? 1 : 0, 1 );
-		this.animator.animate( 'bakuRimLight', type == 'dark' ? 0.0 : 1.0 );
+		this.animator.animate( 'bakuTransparent2', type == 'glass' ? 1 : 0, 1 );
+		this.animator.animate( 'bakuLine2', type == 'line' ? 1 : 0, 1 );
+		this.animator.animate( 'bakuRimLight2', type == 'dark' ? 0.0 : 1.0 );
+		this.animator.animate( 'opacity', type == 'glass' ? 0.2 : 1.0, 1 );
 
 	}
 
@@ -271,7 +272,7 @@ export class Baku2 extends THREE.Object3D {
 		for ( let i = 0; i < this.animationClipNameList.length; i ++ ) {
 
 			let name = this.animationClipNameList[ i ];
-			this.animator.animate( 'BakuWeight/' + name, name == sectionName ? 1 : 0, 1.0, () =>{
+			this.animator.animate( 'BakuWeight2/' + name, name == sectionName ? 1 : 0, 1.0, () =>{
 
 				if ( lastSectionAction && lastSectionAction.getClip().name == name ) {
 
@@ -301,14 +302,14 @@ export class Baku2 extends THREE.Object3D {
 
 				if ( action ) {
 
-					action.weight = this.animator.get( 'BakuWeight/' + name ) || 0;
+					action.weight = this.animator.get( 'BakuWeight2/' + name ) || 0;
 
 				}
 
 				// 無理やりループ
 				if ( action.loop != THREE.LoopOnce ) {
 
-					if ( action.time > 3.33333333333 ) {
+					if ( action.time > 15.33333333333 ) {
 
 						action.time = 0;
 
@@ -322,18 +323,18 @@ export class Baku2 extends THREE.Object3D {
 
 		if ( this.mesh ) {
 
-			this.rotation.z -= ( this.animator.get<number>( 'bakuIntroRotate' ) ?? 0 ) * 3.0;
+			this.rotation.z -= ( this.animator.get<number>( 'bakuIntroRotate2' ) ?? 0 ) * 3.0;
 
 		}
 
-		if ( ! this.animator.isAnimatingVariable( 'bakuRotateValue' ) ) {
+		if ( ! this.animator.isAnimatingVariable( 'bakuRotateValue2' ) ) {
 
 
-			this.animator.setValue( "bakuRotateValue", ( this.animator.get<number>( 'bakuRotateValue' ) ?? 0 ) + ( this.animator.get<number>( 'bakuRotateSpeed' ) ?? 0 ) * deltaTime );
+			this.animator.setValue( "bakuRotateValue2", ( this.animator.get<number>( 'bakuRotateValue2' ) ?? 0 ) + ( this.animator.get<number>( 'bakuRotateSpeed2' ) ?? 0 ) * deltaTime );
 
 		}
 
-		this.container.rotation.z = this.animator.get<number>( 'bakuRotateValue' ) ?? 0;
+		this.container.rotation.z = this.animator.get<number>( 'bakuRotateValue2' ) ?? 0;
 
 	}
 
@@ -348,8 +349,8 @@ export class Baku2 extends THREE.Object3D {
 		action.loop = THREE.LoopOnce;
 		action.play();
 
-		this.animator.animate( 'BakuWeight/section_4', 0, 0.1 );
-		this.animator.animate( 'BakuWeight/section_4_jump', 1.0, 0.1 );
+		this.animator.animate( 'BakuWeight2/section_4', 0, 0.1 );
+		this.animator.animate( 'BakuWeight2/section_4_jump', 1.0, 0.1 );
 
 		if ( this.animationMixer ) {
 
@@ -360,8 +361,8 @@ export class Baku2 extends THREE.Object3D {
 
 				if ( clip.name == 'section_4_jump' ) {
 
-					this.animator.animate( 'BakuWeight/section_4', 1.0, 1.0 );
-					this.animator.animate( 'BakuWeight/section_4_jump', 0.0, 1.0 );
+					this.animator.animate( 'BakuWeight2/section_4', 1.0, 1.0 );
+					this.animator.animate( 'BakuWeight2/section_4_jump', 0.0, 1.0 );
 
 					this.jumping = false;
 
@@ -389,22 +390,22 @@ export class Baku2 extends THREE.Object3D {
 
 		if ( speed == 0.0 ) {
 
-			this.animator.setValue( 'bakuRotateSpeed', 0 );
-			this.animator.setValue( 'bakuRotateValue', ( this.container.rotation.z + Math.PI ) % ( Math.PI * 2.0 ) - Math.PI );
-			this.animator.animate( 'bakuRotateValue', 0 );
+			this.animator.setValue( 'bakuRotateSpeed2', 0 );
+			this.animator.setValue( 'bakuRotateValue2', ( this.container.rotation.z + Math.PI ) % ( Math.PI * 2.0 ) - Math.PI );
+			this.animator.animate( 'bakuRotateValue2', 0 );
 
 			return;
 
 		}
 
-		this.animator.animate( 'bakuRotateSpeed', speed );
+		this.animator.animate( 'bakuRotateSpeed2', speed );
 
 
 	}
 
 	public show( duration: number = 1.0 ) {
 
-		this.animator.animate( 'bakuIntroRotate', 0, duration );
+		this.animator.animate( 'bakuIntroRotate2', 0, duration );
 
 	}
 

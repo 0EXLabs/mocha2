@@ -51,7 +51,8 @@ export class Baku extends THREE.Object3D {
 			roughness: {
 				value: 0.0 // Start with a mid-range value, then adjust
 			},
-			ambientLightColor: { value: new THREE.Color( 0xffffff ) }
+			ambientLightColor: { value: new THREE.Color( 0xffffff ) },
+			opacity: { value: 1.0 }
 		} );
 
 		/*-------------------------------
@@ -249,8 +250,8 @@ export class Baku extends THREE.Object3D {
 
 		this.animator.animate( 'bakuTransparent', type == 'glass' ? 1 : 0, 1 );
 		this.animator.animate( 'bakuLine', type == 'line' ? 1 : 0, 1 );
-		this.animator.animate( 'bakuLine', type == 'line' ? 1 : 0, 1 );
 		this.animator.animate( 'bakuRimLight', type == 'dark' ? 0.0 : 1.0 );
+		this.animator.animate( 'opacity', type == 'glass' ? 0.2 : 1.0, 1 );
 
 	}
 
@@ -308,7 +309,7 @@ export class Baku extends THREE.Object3D {
 				// 無理やりループ
 				if ( action.loop != THREE.LoopOnce ) {
 
-					if ( action.time > 3.33333333333 ) {
+					if ( action.time > 15.33333333333 ) {
 
 						action.time = 0;
 

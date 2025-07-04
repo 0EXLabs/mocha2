@@ -62,4 +62,13 @@ window.addEventListener( 'load', ()=>{
 
 	let app = new APP();
 
+	// Move the intro-skip div
+	const introSkipDiv = document.querySelector('.intro-skip');
+	const contentDiv = document.querySelector('.content');
+	const footerDiv = document.querySelector('.footer');
+
+	if (introSkipDiv && contentDiv && footerDiv && footerDiv.parentNode) {
+		footerDiv.parentNode.insertBefore(introSkipDiv, footerDiv.nextSibling);
+	}
+
 } );

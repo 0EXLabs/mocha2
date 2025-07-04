@@ -13,7 +13,7 @@ export class GlobalManager extends EventEmitter {
 
 	private pane: Pane;
 
-	constructor( ) {
+	constructor( renderer: THREE.WebGLRenderer ) {
 
 		super();
 

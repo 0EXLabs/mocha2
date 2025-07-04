@@ -27,9 +27,13 @@ export class AssetManager extends THREE.EventDispatcher {
 	private mustLoadManager: THREE.LoadingManager;
 	private subLoadManager: THREE.LoadingManager;
 
+
+
 	constructor( ) {
 
 		super();
+
+		
 
 		this.textures = {};
 		this.gltfs = {};
@@ -93,6 +97,8 @@ export class AssetManager extends THREE.EventDispatcher {
 		tex.forEach( item => {
 
 			texLoader.load( item.path, ( t ) => {
+
+				
 
 				this.textures[ item.name ].value = t;
 

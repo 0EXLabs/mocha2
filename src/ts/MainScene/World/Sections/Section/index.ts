@@ -13,6 +13,12 @@ export type BakuTransform = {
 	scale: THREE.Vector3;
 }
 
+export type Baku2Transform = {
+	position: THREE.Vector3;
+	rotation: THREE.Quaternion;
+	scale: THREE.Vector3;
+}
+
 export type LightData = {
 	position: THREE.Vector3;
 	targetPosition: THREE.Vector3;
@@ -60,6 +66,12 @@ export class Section extends THREE.Object3D {
 		scale: new THREE.Vector3( 1, 1, 1 )
 	};
 
+	public baku2Transform: Baku2Transform = {
+		position: new THREE.Vector3(),
+		rotation: new THREE.Quaternion(),
+		scale: new THREE.Vector3( 1, 1, 1 )
+	};
+
 	// state
 
 	public sectionVisibility: boolean = false;
@@ -83,6 +95,13 @@ export class Section extends THREE.Object3D {
 			rotateSpeed: 0
 		};
 
+		public bakuParam2: {
+			materialType: BakuMaterialType2,
+			rotateSpeed: number
+		} = {
+				materialType: 'normal',
+				rotateSpeed: 0
+			};
 	// camera weight
 
 	public cameraSPFovWeight: number = 30;
@@ -189,6 +208,18 @@ export class Section extends THREE.Object3D {
 				this.bakuTransform.position.copy( baku.position );
 				this.bakuTransform.rotation.copy( baku.quaternion );
 				this.bakuTransform.scale.copy( baku.scale );
+
+			}
+
+			// baku2 transform
+
+			let baku2 = gltf.scene.getObjectByName( 'Bakupos2' ) as THREE.Object3D;
+
+			if ( baku2 ) {
+
+				this.baku2Transform.position.copy( baku2.position );
+				this.baku2Transform.rotation.copy( baku2.quaternion );
+				this.baku2Transform.scale.copy( baku2.scale );
 
 			}
 

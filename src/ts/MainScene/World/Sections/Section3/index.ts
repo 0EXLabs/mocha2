@@ -40,16 +40,17 @@ export class Section3 extends Section {
 		this.ppParam.bloomBrightness = 0.0;
 		this.bakuParam.rotateSpeed = 0.0;
 		this.cameraSPFovWeight = 18;
-
+		this.bakuParam2.materialType = 'line';
+		this.bakuParam.materialType = 'line';
 		/*-------------------------------
 			Light
 		-------------------------------*/
 
-		this.light2Data = {
-			intensity: 1,
-			position: new THREE.Vector3( - 3.0, - 11.0, - 3.0 ),
-			targetPosition: new THREE.Vector3( 0, - 11.0, 0 ),
-		};
+		// this.light2Data = {
+		// 	intensity: 1,
+		// 	position: new THREE.Vector3( - 3.0, - 11.0, - 3.0 ),
+		// 	targetPosition: new THREE.Vector3( 0, - 11.0, 0 ),
+		// };
 
 		// cursorLight
 
@@ -61,9 +62,9 @@ export class Section3 extends Section {
 		this.add( this.ambientLight );
 
 		// Added DirectionalLight
-		this.mainDirectionalLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
-		this.mainDirectionalLight.position.set( 5, 10, 5 );
-		this.add( this.mainDirectionalLight );
+		// this.mainDirectionalLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
+		// this.mainDirectionalLight.position.set( 5, 10, 5 );
+		// this.add( this.mainDirectionalLight );
 
 	}
 
@@ -103,7 +104,7 @@ export class Section3 extends Section {
 			Particle
 		-------------------------------*/
 
-		let baku = this.getObjectByName( 'Baku' )!;
+		let baku = this.getObjectByName( 'Bakupos' )!;
 
 		this.particle = new Sec3Particle( this.commonUniforms );
 		this.particle.switchVisibility( this.sectionVisibility );
@@ -154,7 +155,7 @@ export class Section3 extends Section {
 		if ( this.particle ) this.particle.switchVisibility( this.sectionVisibility );
 
 		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
-		if ( this.mainDirectionalLight ) this.mainDirectionalLight.visible = this.sectionVisibility;
+		// if ( this.mainDirectionalLight ) this.mainDirectionalLight.visible = this.sectionVisibility;
 
 	}
 
