@@ -38,9 +38,6 @@ export class Sec1Pointer {
 				fragmentShader: sec1PointerFrag,
 				vertexShader: sec1PointerVert,
 				uniforms: commonUniforms,
-				defines: {
-					"GRADATION": ''
-				}
 			} );
 
 			mesh.material = mat;

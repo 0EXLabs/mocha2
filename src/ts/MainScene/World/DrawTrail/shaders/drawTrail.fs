@@ -373,7 +373,7 @@ void main( void ) {
 	mat.roughness = 0.1;
 	mat.metalness = 0.0;
 
-	vec3 gradation = hsv2rgb( vec3( time * (0.1 + step(0.1, uMaterial[5] ) * 1.0) + ( -vUv.x ) * (0.1 + uMaterial[5] * 3.0) + 0.3, 1.0 - uMaterial[2] * 0.5 - uMaterial[5] * 0.4, 1.0 ) ) * (uMaterial[0] + uMaterial[2] + uMaterial[3] + uMaterial[5]) * 0.9;
+	vec3 gradation = hsv2rgb( vec3( 0.9, 1.0 - uMaterial[2] * 0.5 - uMaterial[5] * 0.4, 1.0 ) ) * (uMaterial[0] + uMaterial[2] + uMaterial[3] + uMaterial[5]) * 0.9;
 
 	// albedo
 
@@ -382,11 +382,7 @@ void main( void ) {
 	// emission
 	
 	mat.emission = vec3( 0.0 );
-	mat.emission += gradation * uMaterial[0];
-	mat.emission += gradation * uMaterial[2];
-	mat.emission += gradation * uMaterial[3];
-	mat.emission += vec3( 0.1, 0.0, 0.0 ) * uMaterial[3];
-	mat.emission += vec3( 0.5 ) * uMaterial[4];
+	mat.emission += vec3(1.0, 0.75, 0.8); // Pink color
 	mat.emission += gradation * uMaterial[5];
 
 	
@@ -456,7 +452,7 @@ void main( void ) {
 	#pragma unroll_loop_end
 	refractCol /= float( 16 );
 
-	outColor += (refractCol) * hsv2rgb(vec3( time * 0.05, 1.0, 1.0 ) ) * uMaterial[1];
+	outColor += (refractCol) * hsv2rgb(vec3( 0.9, 1.0, 1.0 ) ) * uMaterial[1];
 
 	/*-------------------------------
 		PBR

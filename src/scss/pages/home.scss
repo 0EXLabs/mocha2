@@ -93,7 +93,7 @@ background-color: rgba(255, 255, 255, 0);
 		
 		svg {
 			width: 180px;
-			
+			margin-top: 25px;
 			@include sp {
 				width: 135px;
 			}
@@ -106,7 +106,7 @@ background-color: rgba(255, 255, 255, 0);
 .footer {
 	position: fixed;
 	width: 75%;
-	height: 119px;
+	height: 90px;
 	background-color: #B1D37C;
 	color: #fff;
 	padding: 0 2%;
@@ -338,7 +338,7 @@ background-color: rgba(255, 255, 255, 0);
 			border-left:  #2e1c14 3px solid ;
 			border-bottom:  #2e1c14 3px solid ;
 			border-right:  #2e1c14 3px solid ;
-			padding: 20px 25px;
+			padding: 15px 25px;
 			border-radius: 28px;
 			cursor: pointer;
 			font-size: 24px;

@@ -36,7 +36,7 @@ vec3 sec1 = vec3( 0.859,0.875,0.745 );
 	vec3 sec3 = vec3( 0.863,0.875,0.753 );
 	vec3 sec4 = vec3( 1.0 );
 	float gradient = smoothstep(0.0, 1.0, vUv.y) * 0.1 + 0.88;
-vec3 sec5 = vec3(gradient);
+vec3 sec5 = vec3(0.631,0.871,0.996 );
 
 	// Define the top and bottom colors in RGB for sec6
 	vec3 colorTop = vec3( 10.0 / 255.0, 13.0 / 255.0, 54.0 / 255.0 ); // #0A0D36

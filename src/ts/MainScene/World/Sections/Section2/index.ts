@@ -42,7 +42,7 @@ export class Section2 extends Section {
 		/*-------------------------------
 			Light
 		-------------------------------*/
-		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.1 );
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.01 );
 		this.add( this.ambientLight );
 
 		// this.light1Data = {
@@ -63,22 +63,22 @@ export class Section2 extends Section {
 			Slide
 		-------------------------------*/
 
-		this.slides = new Slides( scene.getObjectByName( 'Slides' ) as THREE.Object3D, this.commonUniforms );
-		this.slides.switchVisibility( this.viewing );
+		// this.slides = new Slides( scene.getObjectByName( 'Slides' ) as THREE.Object3D, this.commonUniforms );
+		// this.slides.switchVisibility( this.viewing );
 
 		/*-------------------------------
 			Titles
 		-------------------------------*/
 
-		this.title = new Section2Title( scene.getObjectByName( 'Title' ) as THREE.Mesh, this.commonUniforms );
-		this.title.switchVisibility( this.sectionVisibility );
+		// this.title = new Section2Title( scene.getObjectByName( 'Title' ) as THREE.Mesh, this.commonUniforms );
+		// this.title.switchVisibility( this.sectionVisibility );
 
 		/*-------------------------------
 			Transparent
 		-------------------------------*/
 
-		this.transparents = new Transparents( scene.getObjectByName( 'Transparents' ) as THREE.Object3D, this.commonUniforms );
-		this.transparents.switchVisibility( this.sectionVisibility );
+		// this.transparents = new Transparents( scene.getObjectByName( 'Transparents' ) as THREE.Object3D, this.commonUniforms );
+		// this.transparents.switchVisibility( this.sectionVisibility );
 
 		/*-------------------------------
 			Flexible

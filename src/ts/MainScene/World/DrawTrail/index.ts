@@ -167,7 +167,7 @@ export class DrawTrail extends THREE.Mesh {
 		this.pencil.position.y = 0.1;
 		this.childrenWrapper.add( this.pencil );
 
-		this.pointer = new Sec1Pointer( this.assets.getObjectByName( 'Rocket' ) as THREE.Mesh, this.commonUniforms );
+		this.pointer = new Sec1Pointer( this.assets.getObjectByName( 'polySurface1' ) as THREE.Mesh, this.commonUniforms );
 		this.childrenWrapper.add( this.pointer.mesh );
 
 	}
