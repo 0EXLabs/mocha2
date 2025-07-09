@@ -70,7 +70,7 @@ export class Section3 extends Section {
 		this.add( this.ambientLight );
 
 		// Initialize GUI
-		// this.gui = new GUI();
+		this.gui = new GUI();
 
 		// Added DirectionalLight
 		// this.mainDirectionalLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
@@ -137,13 +137,28 @@ export class Section3 extends Section {
 			bookParentGroup.add( bookRootObject );
 			this.add( bookParentGroup );
 
+			// Traverse the book model and apply MeshBasicMaterial
+			bookRootObject.traverse(( child ) => {
+				if ( ( child as THREE.Mesh ).isMesh ) {
+					const mesh = child as THREE.Mesh;
+					const originalMaterial = mesh.material as THREE.MeshStandardMaterial;
+
+					const newMaterial = new THREE.MeshBasicMaterial( {
+						map: originalMaterial.map, // Preserve existing texture map
+						color: originalMaterial.color,
+					} );
+
+					mesh.material = newMaterial;
+				}
+			} );
+
 			this.book = new Book( bookRootObject as THREE.Object3D, this.commonUniforms );
 			this.book.switchVisibility( this.sectionVisibility );
 
 			// Set static position, rotation, and scale for the book's parent group
-			bookParentGroup.position.set( 0.3, -10.48, 1.8 ); // Set X, Y, Z coordinates
-			bookParentGroup.rotation.set( 0, 0, Math.PI/2 ); // Example: Set X, Y, Z rotation in radians
-			bookParentGroup.scale.set( 30, 30, 30 );   // Example: Set X, Y, Z scale
+			bookParentGroup.position.set( 0.3, -11.48, 0.32 ); // Set X, Y, Z coordinates
+			bookParentGroup.rotation.set( -Math.PI/2, 0, Math.PI/2 ); // Example: Set X, Y, Z rotation in radians
+			bookParentGroup.scale.set( 50, 50, 50 );   // Example: Set X, Y, Z scale
 
 			// Add GUI controls for book transformations (on the parent group)
 			if ( this.gui ) {

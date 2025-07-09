@@ -342,12 +342,10 @@ export class World extends THREE.Object3D {
 		// baku
 
 		this.baku.changeRotateSpeed( section.bakuParam.rotateSpeed );
-		console.log("Baku material type for Baku: ", section.bakuParam.materialType);
 		this.baku.changeMaterial( section.bakuParam.materialType );
 		this.baku.changeSectionAction( section.sectionName );
 
 		this.baku2.changeRotateSpeed( section.bakuParam2.rotateSpeed );
-		console.log("Baku material type for Baku2: ", section.bakuParam2.materialType);
 		this.baku2.changeMaterial( section.bakuParam2.materialType );
 		this.baku2.changeSectionAction( section.sectionName );
 
