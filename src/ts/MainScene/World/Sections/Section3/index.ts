@@ -49,6 +49,7 @@ export class Section3 extends Section {
 		this.cameraSPFovWeight = 18;
 		this.bakuParam2.materialType = 'line';
 		this.bakuParam.materialType = 'line';
+		
 		/*-------------------------------
 			Light
 		-------------------------------*/
@@ -65,7 +66,7 @@ export class Section3 extends Section {
 		// this.add( this.cursorLight );
 
 		// Added AmbientLight
-		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.25 );
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.15 );
 		this.add( this.ambientLight );
 
 		// Initialize GUI

@@ -32,7 +32,7 @@ float hueOffset = (random(gl_FragCoord.xy * 0.01) * 0.01 - 0.005) + (vUv.y * 0.0
 pinkHue = mod(pinkHue + hueOffset, 1.0); // Ensure it wraps around if offset pushes it over 1
 
 vec3 sec1 = vec3( 0.859,0.875,0.745 );
-	vec3 sec2 = vec3( 1.0 );
+	vec3 sec2 = vec3( 0.929,0.929,0.929 );
 	vec3 sec3 = vec3( 0.863,0.875,0.753 );
 	vec3 sec4 = vec3( 1.0 );
 	float gradient = smoothstep(0.0, 1.0, vUv.y) * 0.1 + 0.88;
