@@ -5,7 +5,7 @@ import { CameraTransform } from '../../../CameraController';
 import { LayerInfo } from 'ore-three';
 import { PPParam } from '../../../RenderPipeline';
 import { BakuMaterialType } from '../../Baku';
-
+import { BakuMaterialType2 } from '../../Baku2';
 
 export type BakuTransform = {
 	position: THREE.Vector3;
@@ -96,7 +96,7 @@ export class Section extends THREE.Object3D {
 		};
 
 		public bakuParam2: {
-			materialType: BakuMaterialType2,
+			materialType: BakuMaterialType,
 			rotateSpeed: number
 		} = {
 				materialType: 'normal',
