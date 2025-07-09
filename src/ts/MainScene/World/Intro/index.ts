@@ -15,7 +15,7 @@ export class Intro extends EventEmitter {
 	private animator: ORE.Animator;
 
 	private ui: IntroUI;
-
+	private ambientLight?: THREE.AmbientLight;
 	private renderer: THREE.WebGLRenderer;
 	public scene: THREE.Scene;
 	public camera: THREE.PerspectiveCamera;
@@ -108,7 +108,48 @@ export class Intro extends EventEmitter {
 		/*-------------------------------
 			Text1
 		-------------------------------*/
+		// Inside your constructor, after this.scene.add( introObj );
 
+const plane = this.scene.getObjectByName('Plane') as THREE.Mesh;
+if (plane && plane.isMesh) {
+    // Get the texture that was loaded for the original material, if it exists
+    const originalMaterial = plane.material as THREE.MeshStandardMaterial;
+    const textureFromGLB = originalMaterial?.map || null;
+
+    const basicMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff, // White, so the texture's colors show true
+        map: textureFromGLB,
+        side: THREE.DoubleSide, // Ensure both sides are visible if needed
+		transparent: true
+    });
+
+    plane.material = basicMaterial;
+
+    // Ensure texture properties are set if we're reusing a GLB texture
+    if (textureFromGLB) {
+        textureFromGLB.flipY = false;
+        
+    }
+}
+
+const plane2 = this.scene.getObjectByName('Plane2') as THREE.Mesh;
+if (plane2 && plane2.isMesh) {
+    const originalMaterial2 = plane2.material as THREE.MeshStandardMaterial;
+    const textureFromGLB2 = originalMaterial2?.map || null;
+
+    const basicMaterial2 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        map: textureFromGLB2,
+        side: THREE.DoubleSide,
+		transparent: true
+    });
+    plane2.material = basicMaterial2;
+
+    if (textureFromGLB2) {
+        textureFromGLB2.flipY = false;
+        
+    }
+}
 		this.text1 = new IntroText( this.scene.getObjectByName( 'Text1' ) as THREE.Object3D, this.commonUniforms, 'HELLO', document.querySelector( '.intro-text-item.introText1' ) as HTMLElement );
 		this.text2 = new IntroText( this.scene.getObjectByName( 'Text2' ) as THREE.Object3D, this.commonUniforms, 'TO', document.querySelector( '.intro-text-item.introText2' ) as HTMLElement );
 		this.text3 = new IntroText( this.scene.getObjectByName( 'Text3' ) as THREE.Object3D, this.commonUniforms, 'YOU', document.querySelector( '.intro-text-item.introText3' ) as HTMLElement );
@@ -167,19 +208,19 @@ export class Intro extends EventEmitter {
 						
 					}
 		
-					const shaderMat = new THREE.ShaderMaterial({
-						vertexShader: logoVert,
-						fragmentShader: logoFrag,
-						uniforms: ORE.UniformsLib.mergeUniforms(this.commonUniforms, {
-							uColor: { value: emissiveColor },
-							uMatCapTex: window.gManager.assetManager.getTex('matCapCloud'),
-							num: { value: 1.0 - offset }
-						}),
-						side: THREE.DoubleSide,
-						transparent: false
-					});
+					// const shaderMat = new THREE.ShaderMaterial({
+					// 	vertexShader: logoVert,
+					// 	fragmentShader: logoFrag,
+					// 	uniforms: ORE.UniformsLib.mergeUniforms(this.commonUniforms, {
+					// 		uColor: { value: emissiveColor },
+					// 		uMatCapTex: window.gManager.assetManager.getTex('matCapCloud'),
+					// 		num: { value: 1.0 - offset }
+					// 	}),
+					// 	side: THREE.DoubleSide,
+					// 	transparent: false
+					// });
 		
-					mesh.material = shaderMat;
+					// mesh.material = shaderMat;
 		
 					
 				}
@@ -188,22 +229,24 @@ export class Intro extends EventEmitter {
 		
 		
 		// ✅ Apply to each object
-		applyShaderMaterial('Wave_Left', 0.1);
-		applyShaderMaterial('Wave_Right', 0.2);
-		applyShaderMaterial('Cube', 0.3);
+		// applyShaderMaterial('Wave_Left', 0.1);
+		// applyShaderMaterial('Wave_Right', 0.2);
+		// applyShaderMaterial('Cube', 0.3);
 		
-		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Left')!, {
-			position: new THREE.Vector3(1.7, 0.4, 0.0)
-		}));
+		// this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Left')!, {
+		// 	position: new THREE.Vector3(1.7, 0.4, 0.0)
+		// }));
 		
-		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Right')!, {
-			position: new THREE.Vector3(-1.5, 0.0, 0.0)
-		}));
+		// this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Right')!, {
+		// 	position: new THREE.Vector3(-1.5, 0.0, 0.0)
+		// }));
 		
-		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Cube')!, {
-			position: new THREE.Vector3(-1.0, -0.5, 0.0),
-			scale: 0.6
-		}));
+		// this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Cube')!, {
+		// 	position: new THREE.Vector3(-1.0, -0.5, 0.0),
+		// 	scale: 0.6
+		// }));
+
+		
 	}		
 
 	public hover( args: ORE.TouchEventArgs ) {

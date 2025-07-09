@@ -54,13 +54,13 @@ export class Logo {
 			position: new THREE.Vector3( 1.5, 0.3, 0.0 )
 		};
 
-		// this.meshList.find( item => item.mesh.name == 'LogoPart_3' )!.spTransform = {
-		// 	position: new THREE.Vector3( - 0.7, 0.5, 0.0 )
-		// };
+		this.meshList.find( item => item.mesh.name == 'LogoPart_3' )!.spTransform = {
+			position: new THREE.Vector3( - 0.7, 0.5, 0.0 )
+		};
 
-		// this.meshList.find( item => item.mesh.name == 'LogoPart_4' )!.spTransform = {
-		// 	position: new THREE.Vector3( - 1.5, - 2.3, 0.0 )
-		// };
+		this.meshList.find( item => item.mesh.name == 'LogoPart_4' )!.spTransform = {
+			position: new THREE.Vector3( - 1.5, - 2.3, 0.0 )
+		};
 
 		
 
