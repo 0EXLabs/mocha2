@@ -14,7 +14,7 @@ void main( void ) {
 	vec3 pos = position;
 
 	pos.x += easeInOutQuad( 1.0 - uIsVisibility ) * 0.0;
-
+	
 	vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
 	gl_Position = projectionMatrix * mvPosition;
 
