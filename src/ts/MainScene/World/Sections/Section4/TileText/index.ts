@@ -57,7 +57,7 @@ export class TileText extends THREE.Object3D {
 			Create MSDF Mesh
 		-------------------------------*/
 
-		let [ fontData, texture ] = await this.load( 'gumball' );
+		let [ fontData, texture ] = await this.load( 'gumballl' );
 
 		text.split( '' ).forEach( ( char, index ) => {
 
@@ -100,7 +100,7 @@ export class TileText extends THREE.Object3D {
 
 			resolve( {
 				tile: new THREE.Vector2( 8, 8 ),
-				charList: "abcdefghijklmnopqrstuvwxyz"
+				charList: "abcdefghijklmnopqrstuvwxyza1234567890%"
 			} );
 
 		} );

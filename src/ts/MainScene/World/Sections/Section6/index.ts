@@ -112,8 +112,8 @@ export class Section6 extends Section {
 		-------------------------------*/
 
 		this.wind = new Wind( this.commonUniforms );
-		this.wind.quaternion.copy( ( this.getObjectByName( 'Baku' ) as THREE.Object3D ).quaternion );
-		this.wind.position.copy( ( this.getObjectByName( 'Baku' ) as THREE.Object3D ).position );
+		this.wind.quaternion.copy( ( this.getObjectByName( 'Bakupos' ) as THREE.Object3D ).quaternion );
+		this.wind.position.copy( ( this.getObjectByName( 'Bakupos' ) as THREE.Object3D ).position );
 		this.wind.rotateY( Math.PI / 2 );
 		this.wind.frustumCulled = false;
 		this.wind.switchVisibility( this.sectionVisibility );
@@ -124,8 +124,8 @@ export class Section6 extends Section {
 		-------------------------------*/
 
 		this.particle = new Particle( this.commonUniforms );
-		this.particle.quaternion.copy( ( this.getObjectByName( 'Baku' ) as THREE.Object3D ).quaternion );
-		this.particle.position.copy( ( this.getObjectByName( 'Baku' ) as THREE.Object3D ).position );
+		this.particle.quaternion.copy( ( this.getObjectByName( 'Bakupos' ) as THREE.Object3D ).quaternion );
+		this.particle.position.copy( ( this.getObjectByName( 'Bakupos' ) as THREE.Object3D ).position );
 		this.particle.rotateY( Math.PI / 2 );
 		this.particle.switchVisibility( this.sectionVisibility );
 		this.add( this.particle );
@@ -135,8 +135,8 @@ export class Section6 extends Section {
 		-------------------------------*/
 
 		this.road = new Road( this.commonUniforms );
-		this.road.quaternion.copy( ( this.getObjectByName( 'Baku' ) as THREE.Object3D ).quaternion );
-		this.road.position.copy( ( this.getObjectByName( 'Baku' ) as THREE.Object3D ).position );
+		this.road.quaternion.copy( ( this.getObjectByName( 'Bakupos' ) as THREE.Object3D ).quaternion );
+		this.road.position.copy( ( this.getObjectByName( 'Bakupos' ) as THREE.Object3D ).position );
 		this.road.rotateY( Math.PI / 2 );
 		this.road.switchVisibility( this.sectionVisibility );
 		this.add( this.road );

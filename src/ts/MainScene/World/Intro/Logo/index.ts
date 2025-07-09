@@ -47,6 +47,12 @@ export class Logo extends EventEmitter {
 			initValue: 0,
 		} );
 
+		this.commonUniforms.uPositionY = this.animator.add( {
+			name: 'introLogoPositionY',
+			initValue: -1.0,
+			easing: ORE.Easings.easeOutCubic
+		} );
+
 		this.commonUniforms.uIsVisibility = this.animator.add( {
 			name: 'introLogoIs',
 			initValue: 0,
@@ -76,7 +82,7 @@ export class Logo extends EventEmitter {
 			vertexShader: logoIsVert,
 			uniforms: ORE.UniformsLib.mergeUniforms( this.commonUniforms, {
 				uNum: {
-					value: 1
+					value: 3
 				}
 			} ),
 			transparent: true,
@@ -118,7 +124,8 @@ export class Logo extends EventEmitter {
 	public update( deltaTime: number ) {
 
 		// this.layoutController.updateTransform( this.animator.get( 'introLogoVisibility' ) || 0 );
-		this.logoMesh.position.x = - ( this.animator.get<number>( 'introLogoImaging' ) || 0 ) * 0.4;
+		
+		this.logoMesh.position.y = ( this.animator.get<number>( 'introLogoPositionY' ) || 0 ) * 0.4;
 
 	}
 
@@ -129,6 +136,8 @@ export class Logo extends EventEmitter {
 		await this.animator.animate( 'introLogoIs', 1, 1 );
 
 		await this.animator.animate( 'introLogoIs', 1, 0.8 );
+
+		await this.animator.animate( 'introLogoPositionY', 0, 1.5 );
 
 		setTimeout( () => {
 

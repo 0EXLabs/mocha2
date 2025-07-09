@@ -22,7 +22,7 @@ export class Section5 extends Section {
 		this.elm = document.querySelector( '.section5' ) as HTMLElement;
 
 		this.bakuParam.materialType = 'dark';
-		this.bakuParam.rotateSpeed = 0.18;
+		this.bakuParam.rotateSpeed = 0.0;
 		this.ppParam.bloomBrightness = 0.0;
 		this.ppParam.vignet = 1.0;
 		this.cameraRange.set( 0.02, 0.02 );
@@ -77,16 +77,16 @@ export class Section5 extends Section {
 
 		// baku
 
-		let baku = this.getObjectByName( 'Baku' ) as THREE.Object3D;
-
+		let baku = this.getObjectByName( 'Bakupos' ) as THREE.Object3D;
+		let baku2 = this.getObjectByName( 'Bakupos2' ) as THREE.Object3D;
 		// textring
 
 		baku.add( this.textring );
-
+		baku2.add( this.textring );
 		// grid
 
 		baku.add( this.grid );
-
+		baku2.add( this.grid );
 	}
 
 	public update( deltaTime: number ): void {
@@ -95,15 +95,7 @@ export class Section5 extends Section {
 			// this.bakuTransform.rotation.multiply( new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 0.0, 0.0, 1.0 ), deltaTime * 0.1 ) );
 		}
 
-		let baku = this.getObjectByName( 'Baku' ) as THREE.Object3D;
-
-		if ( baku ) {
-
-
-			baku.rotateZ( - deltaTime * 0.1 );
-
-
-		}
+		
 
 	}
 

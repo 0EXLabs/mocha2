@@ -24,10 +24,11 @@ export class Section4 extends Section {
 
 	private textIndex: number = 0;
 	private textList: string[] = [
-		'surprise',
-		"emotion",
-		"story",
-		"awesome"
+		'10% cex',
+		"50% marketing",
+		"30% public",
+		"10% dev",
+		
 	];
 
 	// layout
@@ -177,9 +178,9 @@ export class Section4 extends Section {
 			vertexShader: makingVert
 		} );
 
-		this.title.position.set( - 2.8, 3.5, - 0.7 );
+		this.title.position.set(  1.2, 3.5, - 0.7 );
 		this.title.scale.setScalar( 0.9 );
-		this.title.setText( 'making' );
+		this.title.setText( '1 billion supply' );
 		this.title.switchVisiblity( this.sectionVisibility );
 		ground.add( this.title );
 
@@ -191,7 +192,7 @@ export class Section4 extends Section {
 		// words
 
 		this.word = new TileText( this.commonUniforms );
-		this.word.position.set( 2.0, 3.0, 3.5 );
+		this.word.position.set( 1.5, 3.0, 3.5 );
 		this.word.scale.setScalar( 0.9 );
 		this.word.switchVisiblity( this.sectionVisibility );
 		this.word.setText( this.textList[ 0 ] );

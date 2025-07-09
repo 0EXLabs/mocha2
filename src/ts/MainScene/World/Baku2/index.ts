@@ -380,9 +380,7 @@ export class Baku2 extends THREE.Object3D {
 
 		}
 
-		this.dispatchEvent( {
-			type: 'jump'
-		} );
+		
 
 	}
 

@@ -8,15 +8,22 @@ import { BackText } from './BackText';
 import { CursorLight } from './CursorLight';
 import { Wire } from './Wire';
 import { Sec3Particle } from './Sec3Particle';
+import { Book } from './Book';
+import { GUI } from 'lil-gui';
 
 export class Section3 extends Section {
 
 	private displays?: Displays;
 	private lights?: Lights;
 	private wire?: Wire;
+	private book?: Book;
 	private directionLightList: THREE.DirectionalLight[] = [];
 	private backText?: BackText;
-	private cursorLight: CursorLight;
+	private mixer?: THREE.AnimationMixer;
+	private bookAnimationAction?: THREE.AnimationAction;
+	private gui?: GUI;
+
+	// private cursorLight: CursorLight;
 	private renderer: THREE.WebGLRenderer;
 	private particle?: Sec3Particle;
 
@@ -54,12 +61,15 @@ export class Section3 extends Section {
 
 		// cursorLight
 
-		this.cursorLight = new CursorLight();
-		this.add( this.cursorLight );
+		// this.cursorLight = new CursorLight();
+		// this.add( this.cursorLight );
 
 		// Added AmbientLight
-		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.15 );
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.25 );
 		this.add( this.ambientLight );
+
+		// Initialize GUI
+		// this.gui = new GUI();
 
 		// Added DirectionalLight
 		// this.mainDirectionalLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
@@ -76,22 +86,22 @@ export class Section3 extends Section {
 			Displays
 		-------------------------------*/
 
-		this.displays = new Displays( this.getObjectByName( 'Displays' ) as THREE.Object3D, this.commonUniforms );
-		this.displays.switchVisibility( this.sectionVisibility );
+		// this.displays = new Displays( this.getObjectByName( 'Displays' ) as THREE.Object3D, this.commonUniforms );
+		// this.displays.switchVisibility( this.sectionVisibility );
 
 		/*-------------------------------
 			Lights
 		-------------------------------*/
 
-		this.lights = new Lights( this.getObjectByName( 'Lights' ) as THREE.Object3D, this.commonUniforms );
-		this.lights.switchVisibility( this.sectionVisibility );
+		// this.lights = new Lights( this.getObjectByName( 'Lights' ) as THREE.Object3D, this.commonUniforms );
+		// this.lights.switchVisibility( this.sectionVisibility );
 
 		/*-------------------------------
 			Wire
 		-------------------------------*/
 
-		this.wire = new Wire( this.getObjectByName( 'Wire' )as THREE.Mesh, this.commonUniforms );
-		this.wire.switchVisibility( this.sectionVisibility );
+		// this.wire = new Wire( this.getObjectByName( 'Wire' )as THREE.Mesh, this.commonUniforms );
+		// this.wire.switchVisibility( this.sectionVisibility );
 
 		/*-------------------------------
 			BackText
@@ -113,6 +123,65 @@ export class Section3 extends Section {
 
 		this.add( this.particle );
 
+		/*-------------------------------
+			Book
+		-------------------------------*/
+
+		// Changed from 'bookpos' to 'armature' as the root object for the Book component
+		const bookRootObject = this.getObjectByName( 'locator1' );
+		console.log(bookRootObject);
+		if ( bookRootObject ) {
+			// Create a parent group to control the overall position of the animated book
+			const bookParentGroup = new THREE.Group();
+			bookParentGroup.add( bookRootObject );
+			this.add( bookParentGroup );
+
+			this.book = new Book( bookRootObject as THREE.Object3D, this.commonUniforms );
+			this.book.switchVisibility( this.sectionVisibility );
+
+			// Set static position, rotation, and scale for the book's parent group
+			bookParentGroup.position.set( 0.3, -10.48, 1.8 ); // Set X, Y, Z coordinates
+			bookParentGroup.rotation.set( 0, 0, Math.PI/2 ); // Example: Set X, Y, Z rotation in radians
+			bookParentGroup.scale.set( 30, 30, 30 );   // Example: Set X, Y, Z scale
+
+			// Add GUI controls for book transformations (on the parent group)
+			if ( this.gui ) {
+				const bookFolder = this.gui.addFolder( 'Book Transform' );
+				bookFolder.add( bookParentGroup.position, 'x', -20, 20 ).name( 'Position X' );
+				bookFolder.add( bookParentGroup.position, 'y', -20, 20 ).name( 'Position Y' );
+				bookFolder.add( bookParentGroup.position, 'z', -20, 20 ).name( 'Position Z' );
+
+				bookFolder.add( bookParentGroup.rotation, 'x', -Math.PI, Math.PI ).name( 'Rotation X' );
+				bookFolder.add( bookParentGroup.rotation, 'y', -Math.PI, Math.PI ).name( 'Rotation Y' );
+				bookFolder.add( bookParentGroup.rotation, 'z', -Math.PI, Math.PI ).name( 'Rotation Z' );
+
+				bookFolder.add( bookParentGroup.scale, 'x', 0.1, 50 ).name( 'Scale X' );
+				bookFolder.add( bookParentGroup.scale, 'y', 0.1, 50 ).name( 'Scale Y' );
+				bookFolder.add( bookParentGroup.scale, 'z', 0.1, 50 ).name( 'Scale Z' );
+
+				bookFolder.open();
+			}
+
+		} else {
+			console.warn( "Armature object (locator1) not found in the GLTF scene for Section3. Ensure your GLTF model contains an object named 'locator1'." );
+		}
+
+		/*-------------------------------
+			Animations
+		-------------------------------*/
+
+		this.mixer = new THREE.AnimationMixer( gltf.scene );
+
+		if ( gltf.animations && gltf.animations.length > 0 ) {
+			// Assuming the first animation clip is for the book. 
+			// You may need to change gltf.animations[0] to a specific animation by name
+			// e.g., gltf.animations.find(clip => clip.name === 'BookAnimationName');
+			const bookClip = gltf.animations[ 0 ]; 
+			this.bookAnimationAction = this.mixer.clipAction( bookClip );
+			this.bookAnimationAction.setLoop( THREE.LoopOnce, 1 );
+			this.bookAnimationAction.clampWhenFinished = true;
+		}
+
 		if ( this.info ) {
 
 			this.resize( this.info );
@@ -125,8 +194,12 @@ export class Section3 extends Section {
 
 		super.update( deltaTime );
 
-		this.cursorLight.update( deltaTime );
-		this.cursorLight.intensity = this.animator.get( 'sectionVisibility' + this.sectionName ) || 0;
+		// this.cursorLight.update( deltaTime );
+		// this.cursorLight.intensity = this.animator.get( 'sectionVisibility' + this.sectionName ) || 0;
+
+		if ( this.mixer ) {
+			this.mixer.update( deltaTime );
+		}
 
 	}
 
@@ -154,16 +227,29 @@ export class Section3 extends Section {
 
 		if ( this.particle ) this.particle.switchVisibility( this.sectionVisibility );
 
+		if ( this.book ) this.book.switchVisibility( this.sectionVisibility );
+
 		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
 		// if ( this.mainDirectionalLight ) this.mainDirectionalLight.visible = this.sectionVisibility;
+
+		if ( this.sectionVisibility ) {
+			if ( this.bookAnimationAction ) {
+				this.bookAnimationAction.stop(); // Stop previous animation if any
+				this.bookAnimationAction.play();
+			}
+		}
 
 	}
 
 	public hover( args: ORE.TouchEventArgs ) {
 
-		this.cursorLight.hover( args );
+		// this.cursorLight.hover( args );
 
 	}
 
-
+	public dispose() {
+		if ( this.gui ) {
+			this.gui.destroy();
+		}
+	}
 }
