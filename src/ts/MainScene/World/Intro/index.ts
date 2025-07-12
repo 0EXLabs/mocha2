@@ -307,6 +307,7 @@ if (plane2 && plane2.isMesh) {
 
 				this.emitEvent( 'finish' );
 
+				this.ui.switchSkipVisibility( false );
 			}
 
 		} );

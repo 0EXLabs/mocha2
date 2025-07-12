@@ -182,15 +182,7 @@ export class World extends THREE.Object3D {
 		this.baku2 = new Baku2( this.manager, this.commonUniforms );
 		this.add( this.baku2 );
 
-		window.setInterval( () => {
-
-			if ( this.section4.sectionVisibility ) {
-
-				this.baku2.jump();
-
-			}
-
-		}, 3500 );
+		
 
 
 		/*-------------------------------
@@ -234,24 +226,8 @@ export class World extends THREE.Object3D {
 		this.sections.push( this.section4 );
 
 		this.baku.addEventListener( 'jump', () => {
-
-			setTimeout( () => {
-
-				this.section4.switchText();
-				window.cameraController.shake( 0.08, 0.3, 7 );
-
-			}, 700 );
-
-		} );
-
-		this.baku2.addEventListener( 'jump', () => {
-
-			setTimeout( () => {
-
-				this.section4.switchText();
-				window.cameraController.shake( 0.08, 0.3, 7 );
-			}, 700 );
-
+			this.section4.switchText();
+			window.cameraController.shake( 0.08, 0.3, 7 );
 		} );
 
 		this.section5 = new Section5( this.manager, this.commonUniforms );

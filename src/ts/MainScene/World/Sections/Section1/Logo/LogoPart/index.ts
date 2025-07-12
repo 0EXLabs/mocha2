@@ -50,6 +50,16 @@ export class LogoPart {
 			side: THREE.DoubleSide
 		} );
 
+		const transparentParts = [
+			'LogoPart_5', 'LogoPart_6', 'LogoPart_7', 'LogoPart_8',
+			'LogoPart_9', 'LogoPart_10', 'LogoPart_11', 'LogoPart_12', 'LogoPart_13'
+		  ];
+		  
+		  // Check if the current mesh's name is in the array
+		  if (transparentParts.includes(this.mesh.name)) {
+			mat.transparent = true;
+		  }
+
 		this.mesh.material = mat;
 
 		this.basePosition = this.mesh.position.clone();

@@ -856,24 +856,20 @@ background-color: rgba(255, 255, 255, 0);
 	&-skip {
 		position: absolute;
 		right: 55px;
-		bottom: 80px;
+		bottom: 15px;
 		color: #fff;
 
 		transform: translateX(250%);
-		transition: opacity .8s, transform .8s;
+		transition: transform .8s;
 
 		pointer-events: none;
 		-webkit-tap-highlight-color: transparent;
-		z-index: 11;
-		opacity: 0;
-		transform: translateX(250%);
 
 		&[data-skipVisible="true"] {
 			
 			transform: translateX(0);
 			cursor: pointer;
 			pointer-events: auto;
-			opacity: 1;
 			
 		}
 
@@ -1061,7 +1057,8 @@ background-color: rgba(255, 255, 255, 0);
 }
 
 .intro-skip {
-	transition: opacity 0.5s ease-out;
+	transition: opacity 0.5s ease-out, transform 0.8s;
+	transform: translateX(250%); /* Set initial position off-screen to the right */
 
 	&[data-skipVisible="false"] {
 		opacity: 0;
@@ -1071,5 +1068,6 @@ background-color: rgba(255, 255, 255, 0);
 	&[data-skipVisible="true"] {
 		opacity: 1;
 		pointer-events: auto;
+		transform: translateX(0);
 	}
 }

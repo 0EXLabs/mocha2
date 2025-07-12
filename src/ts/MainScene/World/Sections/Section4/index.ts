@@ -24,10 +24,9 @@ export class Section4 extends Section {
 
 	private textIndex: number = 0;
 	private textList: string[] = [
-		'10% cex',
-		"50% marketing",
-		"30% public",
-		"10% dev",
+		'love',
+		"heart",
+		"care",
 		
 	];
 
@@ -180,7 +179,7 @@ export class Section4 extends Section {
 
 		this.title.position.set(  1.2, 3.5, - 0.7 );
 		this.title.scale.setScalar( 0.9 );
-		this.title.setText( '1 billion supply' );
+		this.title.setText( 'milkmochaverse' );
 		this.title.switchVisiblity( this.sectionVisibility );
 		ground.add( this.title );
 
@@ -272,11 +271,7 @@ export class Section4 extends Section {
 
 	public switchText() {
 
-		setTimeout( () => {
-
-			if ( this.peoples ) this.peoples.jump();
-
-		}, 400 );
+		if ( this.peoples ) this.peoples.jump();
 
 		this.animator.setValue( 'sec4TextSwtich', 0 );
 		this.animator.animate( 'sec4TextSwtich', 1, 1 );

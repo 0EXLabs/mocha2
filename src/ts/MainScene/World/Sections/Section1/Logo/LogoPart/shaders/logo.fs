@@ -8,9 +8,9 @@ varying vec2 vUv;
 void main( void ) {
 
 	vec3 normal = normalize( vNormal );
-	vec3 col = texture2D( uTex, vUv ).xyz;
+	vec4 tex = texture2D( uTex, vUv );
 	// col = vec3( 1.0 );
 
-	gl_FragColor = vec4( col, 1.0 );
+	gl_FragColor = vec4( tex.rgb, tex.a );
 
 }
