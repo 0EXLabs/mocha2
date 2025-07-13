@@ -29,7 +29,6 @@ export class Comrades extends EventEmitter {
 		} );
 
 		this.origin.visible = false;
-
 	}
 
 	public update( deltaTime: number ) {
