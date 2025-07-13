@@ -182,7 +182,15 @@ export class World extends THREE.Object3D {
 		this.baku2 = new Baku2( this.manager, this.commonUniforms );
 		this.add( this.baku2 );
 
-		
+		window.setInterval( () => {
+
+			if ( this.section4.sectionVisibility ) {
+
+				this.baku2.jump();
+
+			}
+
+		}, 3500 );
 
 
 		/*-------------------------------
