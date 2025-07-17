@@ -13,7 +13,10 @@ $comfortaa: 'Comfortaa', cursive;
 	font-family: 'gomocha';
 	src: URL('../assets/fonts/GoMocha.ttf') format('truetype');
   }
-
+  @font-face {
+	font-family: 'kidzhood';
+	src: URL('../assets/fonts/kidzhood.otf') format('truetype');
+  }
 .content-wrapper {
 	width: 100%;
 	position: relative;
@@ -50,12 +53,10 @@ body {
 	}
 	
 	&-wrap {
-		position: fixed;
+		position: relative;
 		flex: 1;
 		width: 100%;
 		height: 100%;
-		left: 0;
-		top: 0;
 		
 		canvas {
 			position: absolute;
@@ -67,7 +68,6 @@ body {
 		}
 	}
 }
-
 .header {
 	position: relative;
 	display: flex;
@@ -75,8 +75,8 @@ body {
 	height: 70px;
 	align-items: center;
 	justify-content: center;
-	z-index: 2;
-background-color: rgba(255, 255, 255, 0);
+	z-index: 10;
+
 	@include sp {
 		height: 50px;
 	}
@@ -93,9 +93,10 @@ background-color: rgba(255, 255, 255, 0);
 		
 		svg {
 			width: 180px;
-			margin-top: 25px;
+			
 			@include sp {
 				width: 135px;
+				height: 40px;
 			}
 
 		}
@@ -104,35 +105,23 @@ background-color: rgba(255, 255, 255, 0);
 }
 
 .footer {
-	position: fixed;
-	width: 75%;
-	height: 90px;
-	background-color: #B1D37C;
+	position: relative;
+	width: 100%;
+	height: 60px;
+	background-color: #000;
 	color: #fff;
-	padding: 0 2%;
-	bottom: 4%;
-	left: 50%;
-	transform: translateX(-50%);
-	border-top:  #2e1c14 5.5px solid ;
-	border-left:  #2e1c14 4px solid ;
-	border-bottom:  #2e1c14 4px solid ;
-	border-right:  #2e1c14 4px solid ;
-	border-radius: 48px;
+	padding: 0 6%;
+
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	z-index: 10;
-	opacity: 0.0;
-	transition: all 0.2s ease-out, background-color 0.5s ease-in-out;
 	
+
 	@include sp {
 		height: 50px;
-		padding: 0 3%;
+		padding: 0 5%;
 	}
-	&[data-visible="true"] {
-		
-		opacity: 1;
-	}
+
 	&-timeline {
 	
 		position: relative;
@@ -157,7 +146,7 @@ background-color: rgba(255, 255, 255, 0);
 		}
 		
 		&-item {
-			width: 50px;
+			width: 20px;
 			cursor: pointer;
 			position: relative;
 		
@@ -177,15 +166,15 @@ background-color: rgba(255, 255, 255, 0);
 				width: 100%;
 				height: 100%;
 				border-radius: 50% 50%;
-				background-color: #4F7C3A;
+				background-color: #fff;
 				transform: scale(0.3);
-				transition: transform 0.5s ease-out, background-color 0.5s ease-in-out;
+				transition: transform 0.5s ease-out, background-color 0.5s ease-out;
 				z-index: 1;
 			}
 
 			&[data-state="ready" ] {
 				&::after {
-					background-color: #75AF5B;
+					background-color: #555;
 				}
 			}
 			
@@ -196,118 +185,16 @@ background-color: rgba(255, 255, 255, 0);
 				}
 			}
 
-			.footer[data-section="1"] & {
-				&::after {
-					background-color: #4F7C3A;
-				}
-
-				&[data-state="ready"] {
-					&::after {
-						background-color: #75AF5B;
-					}
-				}
-			}
-
-			.footer[data-section="2"] & {
-				&::after {
-					background-color: #FF69B4;
-				}
-
-				&[data-state="ready"] {
-					&::after {
-						background-color: #FFB6C1;
-					}
-				}
-			}
-
 			&:hover {
 				&::after {
 					transform: scale(0.5);
 				}
 			}
-
-			.footer[data-section="3"] & {
-				&::after {
-					background-color: #FFCD51;
-				}
-
-				&[data-state="ready"] {
-					&::after {
-						background-color: #FCECA6;
-					}
-				}
-			}
-
-			&:hover {
-				&::after {
-					transform: scale(0.5);
-				}
-			}
-
-			
-			.footer[data-section="4"] & {
-				&::after {
-					background-color: #D90000;
-				}
-
-				&[data-state="ready"] {
-					&::after {
-						background-color: #DFB8BC;
-					}
-				}
-			}
-
-			&:hover {
-				&::after {
-					transform: scale(0.5);
-				}
-			}
-
-
-			.footer[data-section="5"] & {
-				&::after {
-					background-color: #A1DEFE;
-				}
-
-				&[data-state="ready"] {
-					&::after {
-						background-color: #D9D9D9;
-					}
-				}
-			}
-
-			&:hover {
-				&::after {
-					transform: scale(0.5);
-				}
-			}
-
 		}
 
 	}
 
-	&-copyright {
-		position: relative;
-		opacity: 0;
-		transition: opacity 2s;
-		text-align: right;
 	
-		font-size: 8px;
-		letter-spacing: 0.2em;
-		color: #777;
-
-		&[data-visible="true"] {
-			opacity: 1;
-		}
-
-		@include sp {
-			position: relative;
-			font-size: 8px;
-			letter-spacing: 0.01em;
-			padding-left: 2vw;
-			right: 0%;
-		}
-	}
 
 	&-contract {
 		display: flex;
@@ -322,7 +209,7 @@ background-color: rgba(255, 255, 255, 0);
 		p {
 			font-family: 'gomocha', sans-serif;
 			font-size: 24px;
-			color: #000000;
+			color: #ffffff;
 			@include sp {
 				font-size: 12px;
 				
@@ -338,7 +225,7 @@ background-color: rgba(255, 255, 255, 0);
 			border-left:  #2e1c14 3px solid ;
 			border-bottom:  #2e1c14 3px solid ;
 			border-right:  #2e1c14 3px solid ;
-			padding: 15px 25px;
+			padding: 10px 25px;
 			border-radius: 28px;
 			cursor: pointer;
 			font-size: 24px;
@@ -507,124 +394,123 @@ background-color: rgba(255, 255, 255, 0);
 		}
 	}
 }
-
 .section5 {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	z-index: 0;
-	
-	opacity: 0;
-	transition: opacity 1.0s;
-	
-	&[data-visible="true"] {
-		opacity: 1;
-		transition-delay: .5s;
-	}
-	
-	&-content {
-		width: 90%;
-		max-width: 800px;
-		
-		display: flex;
-		flex-direction: row-reverse;
-		justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column; // Changed to column to stack content vertically
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    
+    opacity: 0;
+    transition: opacity 1.0s;
+    
+    &[data-visible="true"] {
+        opacity: 1;
+        transition-delay: .5s;
+    }
+    
+    &-content {
+        width: 90%;
+        max-width: 800px;
+        
+        display: flex;
+        flex-direction: column; // Changed to column for vertical stacking of content
+        // justify-content: space-around; // Not relevant if content is stacked vertically
+        align-items: center; // Center items horizontally if they don't take full width
 
-		&-sp {
-			width: 100%;
-			max-width: 600px;
-			img {
-				width: 100%;
-			}
-		}
-	}
-	
-	&-text {
-		position: relative;
-		height: 50vh;
-		max-height: 100%;
-		writing-mode: vertical-rl;
-		display: inline-block;
-		padding: 0 10px;
-		z-index: 0;
-		
-		@include sp {
-			padding: 0 3px;		
-			font-size: 16px;
-			letter-spacing: 0.2em;
-			height: 50vh;
-		}
+        // If you still want an image or other elements, they would be separate flex items here.
+        // For text, we'll primarily use section5-text-group or similar.
+    }
+    
+    // Removed section5-content-sp for this example, assuming text is the primary focus.
+    // If you have an image, it would be another direct child of section5-content.
 
-		@for $i from 0 through 30 {
-			&:nth-child(#{$i}) {
-				z-index: #{-$i};
-			}
-		}
-		
-		&-inner {
-			position: relative;
-			display: inline-block;
-			padding: 10px 0px;
+    &-text-group { // New wrapper for all text to manage it as a single block
+        width: 100%; // Or your desired width
+        max-width: 800px; // Maintain max-width
+        display: block; // Or flex-direction: column if you want to explicitly manage paragraphs
 
-			span {
-				position: relative;
-				display: inline-block;
-				font-family: $notosans;
-				font-size: 17px;
-				letter-spacing: 0.35em;
-				color: rgba($color: #fff, $alpha: 0.0);
+        @include sp {
+            padding: 0 3px;     
+            font-size: 16px;
+            letter-spacing: 0.2em;
+        }
+    }
 
-				right: 15px;
-				transition: color 2.0s, right 1.0s;
-				
-				[data-visible5line="true"] &{
-					color: rgba($color: #fff, $alpha: 1.0);
-					right: 0px;
-					
-					@for $i from 0 through 30 {
-						&:nth-child(#{$i}) {
-							transition-delay: #{0.2 + $i * 0.06}s;
-						}
-					}
-				}
-			}
+    &-text {
+        position: relative;
+        // height: 50vh; // This might limit the number of lines visible if you want free flow
+        max-height: 100%;
+        
+        display: block; // Make p tags block-level to ensure they take full width and stack
+        padding: 10px 10px; // Adjust padding as needed
+        z-index: 0;
+        text-align: center; // Example: center text lines
 
-			&::before {
-				content: "";
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				left: 0;
-				top: 0;
-				background-color: rgba($color: #000000, $alpha: 0.4);
-				// z-index: 0;
+        @include sp {
+            padding: 0 3px;     
+            font-size: 16px;
+            letter-spacing: 0.2em;
+            // height: auto; // Let height adjust to content for row by row
+        }
 
-				transform-origin: top;
-				transform: scaleY( 0.0 );
-				transition: transform 1.5s;
+        // Removed the @for loop for z-index as it's typically for layering effects,
+        // which might not be needed for simple row-by-row text.
+        // If needed for other effects, re-evaluate its placement.
+        
+        &-inner {
+            position: relative;
+            display: inline-block; // Keep inline-block for individual span effects if desired
+            padding: 0; // Padding handled by parent .section5-text
 
-				[data-visible5line="true"] & {
-					transform: scaleY( 1.0 );
-				}
-				
-			}
-		}
+            span {
+                position: relative;
+                display: inline-block; // Important for transition of individual words/chars
+                font-family: $notosans;
+                font-size: 17px;
+                letter-spacing: 0.35em;
+                color: rgba($color: #fff, $alpha: 0.0);
 
-		&-wrap {
-		 	
-			pointer-events: none;
-			user-select: none;
-			
-			display: flex;
-			flex-direction: row-reverse;
+                right: 15px;
+                transition: color 2.0s, right 1.0s;
+                
+                [data-visible5line="true"] &{
+                    color: rgba($color: #fff, $alpha: 1.0);
+                    right: 0px;
+                    
+                    @for $i from 0 through 30 {
+                        &:nth-child(#{$i}) {
+                            transition-delay: #{0.2 + $i * 0.06}s;
+                        }
+                    }
+                }
+            }
 
-		}
-		
-		
-	}
+            &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: rgba($color: #000000, $alpha: 0.4);
+                // z-index: 0; // Usually best to manage z-index carefully, might not need here
+
+                transform-origin: top;
+                transform: scaleY( 0.0 );
+                transition: transform 1.5s;
+
+                [data-visible5line="true"] & {
+                    transform: scaleY( 1.0 );
+                }
+            }
+        }
+    }
+
+    // Removed section5-text-wrap as its primary purpose was to create columns.
+    // All text will now be within one logical text group.
 }
 
 .section6 {
@@ -837,7 +723,7 @@ background-color: rgba(255, 255, 255, 0);
 		&-item {
 			position: absolute;
 			color: #2e1c14;
-			font-family: $comfortaa;
+			font-family: 'kidzhood', sans-serif;
 			font-size: 20px;
 			line-height: 1.5em;
 			text-align: center;
@@ -856,7 +742,7 @@ background-color: rgba(255, 255, 255, 0);
 	&-skip {
 		position: absolute;
 		right: 55px;
-		bottom: 15px;
+		bottom: 70px;
 		color: #fff;
 
 		transform: translateX(250%);

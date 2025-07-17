@@ -83,12 +83,12 @@ export class Section6 extends Section {
 		this.comrades.switchVisibility( this.sectionVisibility );
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.comrades.root.getObjectByName( 'Comrade_1' )!, {
-			position: new THREE.Vector3( - 1.0, - 2.5, 0.5 )
+			position: new THREE.Vector3( 5.0, - 2.5, 0.5 )
 		} ) );
 
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.comrades.root.getObjectByName( 'Comrade_2' )!, {
-			position: new THREE.Vector3( 3.5, - 1.5, 0.5 )
+			position: new THREE.Vector3( 4.0, - 1.5, 0.5 )
 		} ) );
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.comrades.root.getObjectByName( 'Comrade_3' )!, {
@@ -96,16 +96,14 @@ export class Section6 extends Section {
 		} ) );
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.comrades.root.getObjectByName( 'Comrade_4' )!, {
-			position: new THREE.Vector3( - 1.0, 8.0, 0.0 )
+			position: new THREE.Vector3( 2.0, 0.0, 0.0 )
 		} ) );
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.comrades.root.getObjectByName( 'Comrade_5' )!, {
-			position: new THREE.Vector3( 0.0, 2.0, 0.0 )
+			position: new THREE.Vector3( 4.0, 2.0, 0.0 )
 		} ) );
 
-		this.layoutControllerList.push( new ORE.LayoutController( this.comrades.root.getObjectByName( 'Comrade_6' )!, {
-			position: new THREE.Vector3( 0.0, 2.0, 0.0 )
-		} ) );
+	
 
 		/*-------------------------------
 			Wind

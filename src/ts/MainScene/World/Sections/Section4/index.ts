@@ -19,7 +19,7 @@ export class Section4 extends Section {
 
 	private title?: TileText;
 	private word?: TileText;
-
+	private ambientLight?: THREE.AmbientLight;
 	private light?: THREE.DirectionalLight;
 
 	private textIndex: number = 0;
@@ -43,6 +43,7 @@ export class Section4 extends Section {
 		this.renderer = renderer;
 
 		this.bakuParam.materialType = 'line';
+		this.bakuParam2.materialType = 'line';
 		this.ppParam.vignet = 1.5;
 		this.cameraSPFovWeight = 5;
 
@@ -67,7 +68,7 @@ export class Section4 extends Section {
 				- 12.504984855651855,
 				13.764548301696777
 			),
-			intensity: 1
+			intensity: 0.2
 		};
 
 		this.light2Data = {
@@ -75,6 +76,8 @@ export class Section4 extends Section {
 			targetPosition: new THREE.Vector3( - 1.7, - 6.7, 12 ),
 			intensity: 0.2
 		};
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.17);
+        this.add( this.ambientLight );
 
 	}
 
@@ -177,15 +180,15 @@ export class Section4 extends Section {
 			vertexShader: makingVert
 		} );
 
-		this.title.position.set(  1.2, 3.5, - 0.7 );
+		this.title.position.set( - 1.0, 3.5, - 0.7 );
 		this.title.scale.setScalar( 0.9 );
 		this.title.setText( 'milkmochaverse' );
 		this.title.switchVisiblity( this.sectionVisibility );
 		ground.add( this.title );
 
 		this.layoutContorllerList.push( new ORE.LayoutController( this.title, {
-			position: new THREE.Vector3( 3.4, 0.0, - 0.8 ),
-			scale: 1.0
+			position: new THREE.Vector3( 1.7, 0.0, - 0.8 ),
+			scale: 0.6
 		} ) );
 
 		// words
@@ -199,8 +202,8 @@ export class Section4 extends Section {
 		ground.add( this.word );
 
 		this.layoutContorllerList.push( new ORE.LayoutController( this.word, {
-			position: new THREE.Vector3( - 4.2, 0.0, 1.9 ),
-			scale: 0.9
+			position: new THREE.Vector3( - 3.5, 0.0, 1.9 ),
+			scale: 0.6
 		} ) );
 
 		/*-------------------------------
@@ -266,6 +269,8 @@ export class Section4 extends Section {
 
 		if ( this.title ) this.title.switchVisiblity( this.sectionVisibility );
 		if ( this.word ) this.word.switchVisiblity( this.sectionVisibility );
+
+		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
 
 	}
 

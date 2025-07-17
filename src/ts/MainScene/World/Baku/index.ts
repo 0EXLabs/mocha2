@@ -219,7 +219,11 @@ export class Baku extends THREE.Object3D {
                 this.animationClipNameList.push( clip.name );
 
                 let action = this.animationMixer.clipAction( this.animations[ i ] );
-                
+                if ( clip.name == 'section_5' ) {
+
+					action.timeScale = 0.1;
+
+				}
                 // Set default to no looping for all actions initially
                 action.loop = THREE.LoopRepeat; // Or whatever your default loop behavior is for non-jump animations
 

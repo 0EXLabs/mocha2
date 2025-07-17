@@ -63,12 +63,12 @@ export class Flexible {
 		} );
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.mesh.getObjectByName( 'text01' )!, {
-			position: new THREE.Vector3( 0.0, 1.2, 0.0 ),
+			position: new THREE.Vector3( 0.0, 0.2, 0.0 ),
 			scale: 1.3
 		} ) );
 
 		this.layoutControllerList.push( new ORE.LayoutController( this.mesh.getObjectByName( 'text02' )!, {
-			position: new THREE.Vector3( 0.0, - 6.2, 0.0 ),
+			position: new THREE.Vector3( 0.0, - 0.2, 0.0 ),
 			scale: 2.0
 		} ) );
 		

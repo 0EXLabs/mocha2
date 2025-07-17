@@ -3,7 +3,7 @@ import * as ORE from 'ore-three';
 
 import transparentVert from './shaders/transparent.vs';
 import transparentFrag from './shaders/transparent.fs';
-
+import transparenttokenFrag from './shaders/transparenttoken.fs';
 export class Transparent {
 
 	// position
@@ -42,7 +42,7 @@ export class Transparent {
 				let baseMat = mesh.material as THREE.MeshStandardMaterial;
 
 				mesh.material = new THREE.ShaderMaterial( {
-					fragmentShader: transparentFrag,
+					fragmentShader: transparenttokenFrag,
 					vertexShader: transparentVert,
 					uniforms: ORE.UniformsLib.mergeUniforms( this.commonUniforms, {
 						uColor: { value: baseMat.color }

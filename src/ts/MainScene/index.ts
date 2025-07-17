@@ -25,7 +25,7 @@ export class MainScene extends ORE.BaseLayer {
 	// content
 
 	private world?: World;
-	private subtitles: Subtitles;
+	
 	private header: Header;
 	private footer: Footer;
 	private loading: Loading;
@@ -76,7 +76,7 @@ export class MainScene extends ORE.BaseLayer {
 
 				let section = this.world.changeSection( sectionIndex );
 
-				this.subtitles.changeSection( sectionIndex );
+				
 
 				if ( this.cameraController ) this.cameraController.changeRange( section.cameraRange );
 
@@ -91,28 +91,7 @@ export class MainScene extends ORE.BaseLayer {
 
 				window.gManager.emitEvent( 'sectionChange', [ section.sectionName ] );
 
-				switch ( sectionIndex ) {
-					case 0:
-						this.footer.changeBackgroundColor( '#B1D37C' ); // Green for Section 1 (index 0)
-						break;
-					case 1:
-						this.footer.changeBackgroundColor( '#FFFFFF' ); // White for Section 2 (index 1)
-						break;
-					case 2:
-						this.footer.changeBackgroundColor( '#FFFFFF' ); // Blue for Section 3 (index 2)
-						break;
-					case 3:
-						this.footer.changeBackgroundColor( '#FFFFFF' ); // Grey for Section 4 (placeholder)
-						break;
-					case 4:
-						this.footer.changeBackgroundColor( '#FFFFFF' ); // Cyan for Section 5 (placeholder)
-						break;
-					case 5:
-						this.footer.changeBackgroundColor( '#FFFFFF' ); // Magenta for Section 6 (placeholder)
-						break;
-					default:
-						this.footer.changeBackgroundColor( '#ffffff00' ); // Default transparent
-				}
+				
 
 			}
 
@@ -142,8 +121,7 @@ export class MainScene extends ORE.BaseLayer {
 			Subtitles
 		-------------------------------*/
 
-		this.subtitles = new Subtitles();
-		window.subtitles = this.subtitles;
+		
 
 		/*-------------------------------
 			Header

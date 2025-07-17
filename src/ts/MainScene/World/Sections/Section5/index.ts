@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import * as ORE from 'ore-three';
-import { GUI } from 'lil-gui';
 
 import { Section, ViewingState } from '../Section';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -13,11 +12,7 @@ export class Section5 extends Section {
 	private textring: TextRing;
 	private grid: Grid;
 	private outro: Outro;
-	private gui: GUI;
-	private ambientLight?: THREE.AmbientLight;
-	private bakupos4: THREE.Object3D | undefined;
-	private locatorModel?: THREE.Object3D;
-	private mixer: THREE.AnimationMixer | undefined;
+
 	constructor( manager: THREE.LoadingManager, parentUniforms: ORE.Uniforms ) {
 
 		super( manager, 'section_5', parentUniforms );
@@ -27,8 +22,9 @@ export class Section5 extends Section {
 		this.elm = document.querySelector( '.section5' ) as HTMLElement;
 
 		this.bakuParam.materialType = 'dark';
-		this.bakuParam.rotateSpeed = 0.0;
-		this.ppParam.bloomBrightness = 0.0;
+		this.bakuParam.rotateSpeed = 0.18;
+		this.bakuParam2.rotateSpeed = 0.18;
+		this.ppParam.bloomBrightness = 1.0;
 		this.ppParam.vignet = 1.0;
 		this.cameraRange.set( 0.02, 0.02 );
 
@@ -43,7 +39,7 @@ export class Section5 extends Section {
 				- 12.504984855651855,
 				13.764548301696777
 			),
-			intensity: 0.5
+			intensity: 0
 		};
 
 		this.light2Data = {
@@ -51,8 +47,7 @@ export class Section5 extends Section {
 			targetPosition: new THREE.Vector3( - 1.7, - 6.7, 12 ),
 			intensity: 0.5,
 		};
-		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.1 );
-		this.add( this.ambientLight );
+
 		/*-------------------------------
 			TextRing
 		-------------------------------*/
@@ -73,9 +68,6 @@ export class Section5 extends Section {
 
 		this.outro = new Outro();
 
-		this.gui = new GUI();
-		this.gui.hide();
-
 	}
 
 	protected onLoadedGLTF( gltf: GLTF ): void {
@@ -83,67 +75,29 @@ export class Section5 extends Section {
 		let scene = gltf.scene;
 
 		this.add( scene );
-		console.log("GLTF Scene for Section 5:", gltf.scene);
-		console.log("GLTF Animations for Section 5:", gltf.animations);
+
+		// Log the scene and its children for debugging
+		console.log("GLTF Scene:", scene);
+		scene.traverse((obj) => {
+			if (obj.isObject3D) {
+				console.log("Object in GLTF scene:", obj.name);
+			}
+		});
+
 		// baku
 
-		
-		let baku3 = this.getObjectByName( 'Bakupos3' ) as THREE.Object3D;
+		let baku = this.getObjectByName( 'Baku' ) as THREE.Object3D;
+		let baku2 = this.getObjectByName( 'Bakupos' ) as THREE.Object3D;
+		let baku3 = this.getObjectByName( 'Bakupos2' ) as THREE.Object3D;
 		// textring
 
-		baku3.add( this.textring );
-		
+		baku.add( this.textring );
+
 		// grid
 
-		baku3.add( this.grid );
+		baku.add( this.grid );
+
 		
-		this.bakupos4 = this.getObjectByName( 'locator1' ) as THREE.Object3D;
-
-		if ( this.bakupos4 ) {
-			this.bakupos4.position.y = 0.176;
-			const folder = this.gui.addFolder( 'Bakupos4' );
-			folder.add( this.bakupos4.position, 'x', - 0, 1 ).name( 'Position X' ).step( 0.001 );
-			folder.add( this.bakupos4.position, 'y', - 0, 1 ).name( 'Position Y' ).step( 0.001 );
-			folder.add( this.bakupos4.position, 'z',  0, 1 ).name( 'Position Z' ).step( 0.001 );
-
-		}
-
-		gltf.scene.traverse((child) => {
-            console.log("Child object in Section 3:", child.name, child);
-            
-            // Check if the current child is the 'tree' model
-            // IMPORTANT: Replace 'tree' with the actual name of your tree model in the GLTF file.
-            // You can verify the name from the console.log output above.
-            if (child.name === 'locator1') { 
-                this.locatorModel = child;
-                // Set initial visibility of the tree based on the current section visibility
-                this.switchLocatorisibility(this.sectionVisibility);
-            }
-
-            // Existing material modification logic
-            if ((child as THREE.Mesh).isMesh) {
-                const mesh = child as THREE.Mesh;
-                if (mesh.name === 'bloons') {
-                    const originalMaterial = mesh.material as THREE.MeshStandardMaterial;
-                    const newMaterial = new THREE.MeshStandardMaterial({
-                        map: originalMaterial.map,
-                        color: originalMaterial.color,
-                        transparent: true
-                    });
-                    mesh.material = newMaterial;
-                }
-            }
-        });
-
-		if (gltf.animations && gltf.animations.length) {
-            this.mixer = new THREE.AnimationMixer(gltf.scene);
-            const bloonsClip = gltf.animations.find(clip => clip.name === 'bloonsAnimation.001');
-            if (bloonsClip) {
-                const action = this.mixer!.clipAction(bloonsClip);
-                action.setLoop(THREE.LoopRepeat, Infinity);
-                action.play();
-            }
-        }
 
 	}
 
@@ -153,23 +107,16 @@ export class Section5 extends Section {
 			// this.bakuTransform.rotation.multiply( new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 0.0, 0.0, 1.0 ), deltaTime * 0.1 ) );
 		}
 
-		if ( this.sectionVisibility ) {
-			// this.bakuTransform.rotation.multiply( new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 0.0, 0.0, 1.0 ), deltaTime * 0.1 ) );
-		}
+		let baku2 = this.getObjectByName( 'Bakupos' ) as THREE.Object3D;
+		let baku3 = this.getObjectByName( 'Bakupos2' ) as THREE.Object3D;
+		if ( baku2 ) {
 
-		let baku3 = this.getObjectByName( 'Bakupos3' ) as THREE.Object3D;
-
-		if ( baku3 ) {
-
-
+			
+			baku2.rotateZ( - deltaTime * 0.1 );
 			baku3.rotateZ( - deltaTime * 0.1 );
 
-
 		}
-
-		if (this.mixer) {
-            this.mixer.update(deltaTime);
-        }
+		
 
 	}
 
@@ -188,8 +135,7 @@ export class Section5 extends Section {
 			this.outroTextTimer = null;
 
 		}
-		this.switchLocatorisibility(this.sectionVisibility);
-		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
+
 		this.outroTextTimer = window.setTimeout( () => {
 
 			this.outro.switchVisibility( this.sectionVisibility );
@@ -197,24 +143,6 @@ export class Section5 extends Section {
 
 		}, this.sectionVisibility ? 100 : 0 );
 
-		if ( this.sectionVisibility ) {
-
-			this.gui.show();
-
-		} else {
-
-			this.gui.hide();
-
-		}
-
 	}
-	private switchLocatorisibility(isVisible: boolean): void {
-        if (this.locatorModel) {
-            // Traverse all children of the tree model and set their visibility
-            this.locatorModel.traverse((child) => {
-                child.visible = isVisible;
-            });
-        }
-    }
 
 }

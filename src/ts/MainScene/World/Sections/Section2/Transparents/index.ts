@@ -36,17 +36,17 @@ export class Transparents {
 
 		} );
 
-		this.layoutController.push( new ORE.LayoutController( this.meshList.find( item => item.root.name == 'Cube' )!.root, {
+		this.layoutController.push( new ORE.LayoutController( this.meshList.find( item => item.root.name == 'Token1C' )!.root, {
 			position: new THREE.Vector3( 1.7, 1.3, 0.0 ),
 			scale: 1.0,
 		} ) );
 
-		this.layoutController.push( new ORE.LayoutController( this.meshList.find( item => item.root.name == 'Torus' )!.root, {
+		this.layoutController.push( new ORE.LayoutController( this.meshList.find( item => item.root.name == 'Token2C' )!.root, {
 			position: new THREE.Vector3( - 1.5, - 1.0, 0.0 ),
 			scale: 1.2
 		} ) );
 
-		this.layoutController.push( new ORE.LayoutController( this.meshList.find( item => item.root.name == 'Cylinder' )!.root, {
+		this.layoutController.push( new ORE.LayoutController( this.meshList.find( item => item.root.name == 'TokenT' )!.root, {
 			position: new THREE.Vector3( - 1.8, - 1.5, 0.0 ),
 			scale: 1.5
 		} ) );

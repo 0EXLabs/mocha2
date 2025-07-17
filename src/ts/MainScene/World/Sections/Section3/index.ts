@@ -21,7 +21,7 @@ export class Section3 extends Section {
     private backText?: BackText;
     private mixer?: THREE.AnimationMixer;
     private bookAnimationAction?: THREE.AnimationAction;
-    private gui?: GUI;
+    
 
     private cursorLight: CursorLight;
     private renderer: THREE.WebGLRenderer;
@@ -49,8 +49,8 @@ export class Section3 extends Section {
         this.ppParam.bloomBrightness = 0.7;
         this.bakuParam.rotateSpeed = 0.0;
         this.cameraSPFovWeight = 18;
-        this.bakuParam2.materialType = 'line';
         this.bakuParam.materialType = 'line';
+        this.bakuParam2.materialType = 'line';
         
         /*-------------------------------
             Light
@@ -67,11 +67,11 @@ export class Section3 extends Section {
         this.add( this.cursorLight );
 
         // Added AmbientLight
-        this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.05 );
+        this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.17);
         this.add( this.ambientLight );
 
         // Initialize GUI
-        this.gui = new GUI();
+        
 
         // Added DirectionalLight
         // this.mainDirectionalLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
@@ -83,15 +83,12 @@ export class Section3 extends Section {
     protected onLoadedGLTF( gltf: GLTF ): void {
 
         this.add( gltf.scene );
-        console.log("GLTF Scene for Section 3:", gltf.scene);
+        
 
         // Traverse the GLTF scene to find the 'tree' model and store its reference
         gltf.scene.traverse((child) => {
-            console.log("Child object in Section 3:", child.name, child);
             
-            // Check if the current child is the 'tree' model
-            // IMPORTANT: Replace 'tree' with the actual name of your tree model in the GLTF file.
-            // You can verify the name from the console.log output above.
+            
             if (child.name === 'tree') { 
                 this.treeModel = child;
                 // Set initial visibility of the tree based on the current section visibility
@@ -103,10 +100,11 @@ export class Section3 extends Section {
                 const mesh = child as THREE.Mesh;
                 if (mesh.name === 'model_6002' || mesh.name === 'model_6002_2' || mesh.name === 'model_6002_4') {
                     const originalMaterial = mesh.material as THREE.MeshStandardMaterial;
-                    const newMaterial = new THREE.MeshBasicMaterial({
+                    const newMaterial = new THREE.MeshStandardMaterial({
                         map: originalMaterial.map,
                         color: originalMaterial.color,
-                        transparent: true
+                        transparent: true,
+                        side: THREE.DoubleSide
                     });
                     mesh.material = newMaterial;
                 }
@@ -287,9 +285,5 @@ export class Section3 extends Section {
         this.cursorLight.hover( args );
     }
 
-    public dispose() {
-        if ( this.gui ) {
-            this.gui.destroy();
-        }
-    }
+ 
 }

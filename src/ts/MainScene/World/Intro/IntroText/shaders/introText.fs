@@ -6,7 +6,7 @@ void main( void ) {
     vec4 texel = texture2D( tex, vUv ); // Get the full texel (including alpha)
     float alpha = texel.a; // Extract the alpha channel
 
-    vec3 desiredLetterColor = vec3(0.267,0.145,0.114); 
+    vec3 desiredLetterColor = vec3(0.0,0.0,0.0); 
 
     // Create the final color using the desired color and the texture's alpha
     vec4 finalColor = vec4(desiredLetterColor, alpha);

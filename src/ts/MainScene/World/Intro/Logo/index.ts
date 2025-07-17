@@ -139,26 +139,14 @@ export class Logo extends EventEmitter {
 
 		await this.animator.animate( 'introLogoPositionY', 0, 1.5 );
 
-		setTimeout( () => {
-
-			if ( this.canceled ) return;
-
-			window.subtitles.show( '', 0.8 );
-
-			this.emitEvent( 'showImaging' );
-
-		}, 500 );
+		
 
 
 		await this.animator.animate( 'introLogoImaging', 1, 1.5 );
 
 		await this.animator.animate( 'introLogoImaging', 1, 0.5 );
 
-		setTimeout( () => {
-
-			window.subtitles.hideAll();
-
-		}, 500 );
+		
 
 		await this.animator.animate( 'introLogoVisibility', 0, 1 );
 
@@ -172,7 +160,7 @@ export class Logo extends EventEmitter {
 	public cancel() {
 
 		this.canceled = true;
-		window.subtitles.hideAll();
+		
 
 	}
 
