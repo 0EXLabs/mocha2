@@ -8,9 +8,7 @@
   },
   "scripts": {
     "dev": "npx gulp",
-    "build": "npx gulp build",
-    "preview": "serve dist"
-    
+    "build": "npx gulp build"
   },
   "author": "junni",
   "bugs": {

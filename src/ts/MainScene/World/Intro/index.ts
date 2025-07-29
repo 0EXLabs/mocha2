@@ -233,13 +233,13 @@ if (plane2 && plane2.isMesh) {
 		// applyShaderMaterial('Wave_Right', 0.2);
 		// applyShaderMaterial('Cube', 0.3);
 		
-		// this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Left')!, {
-		// 	position: new THREE.Vector3(1.7, 0.4, 0.0)
-		// }));
+		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Plane')!, {
+			position: new THREE.Vector3(-1.7, 0.0, 0.0)
+		}));
 		
-		// this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Wave_Right')!, {
-		// 	position: new THREE.Vector3(-1.5, 0.0, 0.0)
-		// }));
+		this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Plane2')!, {
+			position: new THREE.Vector3(1.7, 0.0, 0.0)
+		}));
 		
 		// this.layoutControllerList.push(new ORE.LayoutController(this.scene.getObjectByName('Cube')!, {
 		// 	position: new THREE.Vector3(-1.0, -0.5, 0.0),

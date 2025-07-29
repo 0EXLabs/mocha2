@@ -312,7 +312,8 @@ body {
 .section1{
 	display: flex;
 	
-	padding-top: 120px;
+margin-top: 100px;
+	padding-bottom: 0px;
 	justify-content: center;     // horizontal center
 	align-items: flex-start;
 	height: 100vh;
@@ -324,20 +325,18 @@ body {
 		}
 	}
 	@include sp{
-		margin-left: 0px ;
-		align-items:center;
-	}
-	@media only screen and (max-width: 900px) and (orientation: landscape) {
-		padding-bottom: 10px;
 		
+		align-items:center;
+		padding-bottom: 600px;
 	}
+	
 }
 .info-sc1 {
 	
    
  text-align: center;
     color: black; /* Assuming text inside should be black for contrast */
-    padding: 15px;
+    
     
     z-index: 100; /* Ensure it's on top of other content */
     width: 490px; /* Example width, adjust as necessary */
@@ -347,10 +346,10 @@ body {
 	pointer-events: none;
 	font-size: 1.5rem;
     @include sp {
-        bottom: 60px; /* Adjusted for 50px mobile footer + 10px margin */
+         /* Adjusted for 50px mobile footer + 10px margin */
 		font-size: 1.1rem;
 		width: 330px;
-		left: 5%;
+	
 		
     }
 	opacity: 0;
@@ -361,8 +360,9 @@ body {
 	}
 
 	// Explicit media query for small screens in landscape orientation
-	@media only screen and (max-width: 900px) and (orientation: landscape) {
-		font-size: 0.9rem; // Adjusted smaller font size for mobile landscape
+	@media only screen and (max-width: 950px) and (orientation: landscape) {
+		font-size: 1.0rem; // Adjusted smaller font size for mobile landscape
+		margin-top: -60px;
 
 	}
 }
