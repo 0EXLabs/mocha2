@@ -16,7 +16,7 @@ export class Section6 extends Section {
 	private wind?: Wind;
 	private particle?: Particle;
 	private road?: Road;
-
+	private ambientLight?: THREE.AmbientLight;
 	// sp
 
 	private cameraBasePos: THREE.Vector3 | null = null;
@@ -25,14 +25,15 @@ export class Section6 extends Section {
 	// next
 
 	private next: Next;
-
+	
 	constructor( manager: THREE.LoadingManager, parentUniforms: ORE.Uniforms ) {
 
 		super( manager, 'section_6', parentUniforms );
 
 		this.elm = document.querySelector( '.section6' );
 
-		this.bakuParam.materialType = 'normal';
+		this.bakuParam.materialType = 'line';
+		this.bakuParam2.materialType = 'line';
 		this.ppParam.bloomBrightness = 2.0;
 		this.trailDepth = 0.96;
 
@@ -62,6 +63,8 @@ export class Section6 extends Section {
 			intensity: 0,
 		};
 
+		this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.1);
+        this.add( this.ambientLight );
 		/*-------------------------------
 			Next
 		-------------------------------*/
@@ -196,6 +199,7 @@ export class Section6 extends Section {
 			}
 
 		}
+		if ( this.ambientLight ) this.ambientLight.visible = this.sectionVisibility;
 
 		if ( this.wind ) this.wind.switchVisibility( this.sectionVisibility );
 		if ( this.comrades ) this.comrades.switchVisibility( this.sectionVisibility );

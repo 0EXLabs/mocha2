@@ -182,7 +182,7 @@ export class Section4 extends Section {
 
 		this.title.position.set( - 1.0, 3.5, - 0.7 );
 		this.title.scale.setScalar( 0.9 );
-		this.title.setText( 'milkmochaverse' );
+		this.title.setText( 'milkmocha' );
 		this.title.switchVisiblity( this.sectionVisibility );
 		ground.add( this.title );
 

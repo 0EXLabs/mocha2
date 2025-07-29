@@ -340,60 +340,62 @@ body {
 }
 
 .section3 {
-	&-message {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		
-		opacity: 0;
-		transition: opacity .3s;
-		
-		[data-visible="true"] &{
+	&[data-visible="true"] {
+		.info-row {
 			opacity: 1;
-		}
-		
-		&-inner {
-			position: relative;
-			width: 80%;
-		}
-
-		&-text {
-			color: #fff;
-			font-family: $jura;
-			font-size: 1.5vw;
-			letter-spacing: 0.4em;
-			text-align: center;
-			width: 100%;
-
-			&.ja {
-				font-size: 1.0vw;
-				letter-spacing: 1.3vw;
-				color: rgba($color: #fff, $alpha: 0.6);
-			}
-			
-			@include sp {
-				font-size: 3.5vw;
-			}
-		}
-
-		&-deco {
-			position: absolute;
-			
-			&.deco1 {
-				right: 0;
-				bottom: -3vw;	
-			}
-			
-			&.deco2 {
-				left: 0;
-				top: -3vw;	
+			.info-item {
+				opacity: 1; /* Make info-item visible when section3 is visible */
 			}
 		}
 	}
 }
+
+.info-row {
+	display: flex;
+	justify-content: center;
+	gap: 150px;
+	align-items: left; /* Set to center */
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 20px 0;
+	z-index: 10;
+	transition: opacity 1.0s;
+
+	@include sp {
+		gap: 30px;
+		padding: 10px 0;
+	}
+}
+
+.info-item {
+	color: #fff;
+	font-family: 'gomocha', sans-serif;
+	font-size: 0.8rem; /* Smaller font size for the text */
+	text-align: left; /* Center align text */
+	opacity: 0; /* Initially hidden */
+	transition: opacity 0.5s; /* Smooth transition for visibility */
+
+	@include sp {
+	  font-size: 0.7rem; /* Smaller font size for text on mobile */
+	}
+	br {
+	  display: block;
+	}
+	.percentage-value {
+	  color: #fff;
+	  /* Removed: opacity: 0; */
+	  font-size: 2.5rem; /* Bigger font size for the number and percentage */
+	  text-align: center; /* Center align text */
+	  @include sp {
+		font-size: 2.0rem; /* Smaller font size for percentage on mobile */
+	  }
+	  br {
+		display: block;
+	  }
+	}
+}
+
 .section5 {
     width: 100%;
     height: 100%;
@@ -435,7 +437,7 @@ body {
         @include sp {
             padding: 0 3px;     
             font-size: 16px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
         }
     }
 
@@ -444,7 +446,7 @@ body {
         // height: 50vh; // This might limit the number of lines visible if you want free flow
         max-height: 100%;
         
-        display: block; // Make p tags block-level to ensure they take full width and stack
+        display: inline-block; // Make p tags block-level to ensure they take full width and stack
         padding: 10px 10px; // Adjust padding as needed
         z-index: 0;
         text-align: center; // Example: center text lines
@@ -452,7 +454,7 @@ body {
         @include sp {
             padding: 0 3px;     
             font-size: 16px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
             // height: auto; // Let height adjust to content for row by row
         }
 
@@ -468,8 +470,8 @@ body {
             span {
                 position: relative;
                 display: inline-block; // Important for transition of individual words/chars
-                font-family: $notosans;
-                font-size: 17px;
+                font-family: 'gomocha', sans-serif;
+                font-size: 5em;
                 letter-spacing: 0.35em;
                 color: rgba($color: #fff, $alpha: 0.0);
 
@@ -495,7 +497,7 @@ body {
                 height: 100%;
                 left: 0;
                 top: 0;
-                background-color: rgba($color: #000000, $alpha: 0.4);
+                
                 // z-index: 0; // Usually best to manage z-index carefully, might not need here
 
                 transform-origin: top;
@@ -507,10 +509,89 @@ body {
                 }
             }
         }
+		
+		&-inner2 {
+            position: relative;
+            display: inline-block; // Keep inline-block for individual span effects if desired
+            padding: 0; // Padding handled by parent .section5-text
+
+            span {
+                position: relative;
+                display: inline-block; // Important for transition of individual words/chars
+				font-family: 'gomocha', sans-serif;
+                font-size: 1.5em;
+                letter-spacing: 0.15em;
+                color: rgba($color: #fff, $alpha: 0.0);
+
+                right: 15px;
+                transition: color 2.0s, right 1.0s;
+                
+                [data-visible5line="true"] &{
+                    color: rgba($color: #fff, $alpha: 1.0);
+                    right: 0px;
+                    
+                    @for $i from 0 through 30 {
+                        &:nth-child(#{$i}) {
+                            transition-delay: #{0.2 + $i * 0.06}s;
+                        }
+                    }
+                }
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                
+                // z-index: 0; // Usually best to manage z-index carefully, might not need here
+
+                transform-origin: top;
+                transform: scaleY( 0.0 );
+                transition: transform 1.5s;
+
+                [data-visible5line="true"] & {
+                    transform: scaleY( 1.0 );
+                }
+            }
+        }
+		
+    }
+	
+
+    .button-primary {
+        display: inline-block; // Makes the link behave like a block-level element but takes only necessary width
+        padding: 15px 30px; // Adjust padding to control button size
+        margin-top: 20px; // Add some space above the button
+        background-color: #B1D37C; // Example button background color (blue)
+        color: #000000; // Text color (white)
+        text-decoration: none; // Remove underline from link
+        font-family: 'gomocha', sans-serif; // Use your desired font
+        font-size: 1.2em;
+        letter-spacing: 0.1em;
+        border-radius: 15px; // Slightly rounded corners
+        transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transitions for hover effects
+        cursor: pointer; // Indicate it's clickable
+
+        &:hover {
+            background-color: #9ebc6e; // Darker blue on hover
+            transform: translateY(-2px); // Slight lift on hover
+        }
+
+        // You might want to apply the data-visible5line logic here if you want it to animate in
+        opacity: 1;
+        transform: translateY(15px);
+        transition: opacity 1.0s ease, transform 1.0s ease;
+
+        [data-visible5line="true"] & {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.8s; // Adjust delay to fit your animation sequence
+        }
     }
 
-    // Removed section5-text-wrap as its primary purpose was to create columns.
-    // All text will now be within one logical text group.
 }
 
 .section6 {
