@@ -47,7 +47,7 @@ vec3 sec5 = vec3( smoothstep( 0.0, 1.0, vUv.y ) * 0.5 ) * 0.3;
 	// Using smoothstep for a softer, more natural gradient transition.
 	vec3 sec6 = mix( colorBottom, colorTop, smoothstep( 0.0, 1.0, vUv.y ) );
 
-	vec3 color = vec3( 0.0 );
+	vec3 color = vec3( 1.0 );
 	color = mix( color, sec1, uSection[ 0 ] );
 	color = mix( color, sec2, uSection[ 1 ] );
 	color = mix( color, sec3, uSection[ 2 ] );
