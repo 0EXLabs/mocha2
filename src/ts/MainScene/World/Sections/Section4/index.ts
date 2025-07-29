@@ -99,7 +99,7 @@ export class Section4 extends Section {
 			mesh.castShadow = true;
 			mesh.receiveShadow = true;
 			let uni = ORE.UniformsLib.mergeUniforms( this.commonUniforms, THREE.UniformsUtils.clone( THREE.UniformsLib.lights ), {
-				uMatCapTex: window.gManager.assetManager.getTex( 'matCapOrange' ),
+				
 				shadowLightModelViewMatrix: {
 					value: new THREE.Matrix4()
 				},

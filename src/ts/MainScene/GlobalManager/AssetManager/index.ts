@@ -196,7 +196,7 @@ export class AssetManager extends THREE.EventDispatcher {
 
 		if ( ! texture ) {
 
-			console.warn( 'texture: ' + name + ' is not exist.' );
+			
 
 			this.textures[ name ] = { value: null };
 

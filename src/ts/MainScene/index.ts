@@ -172,16 +172,14 @@ export class MainScene extends ORE.BaseLayer {
 			} },
 			{ name: 'introText', path: './assets/textures/intro-text.png', type: 'tex', timing: 'must' },
 			{ name: 'topLogo', path: './assets/textures/top_logo.png', type: 'tex', timing: 'must' },
-			{ name: 'matCap', path: './assets/textures/matcap.png', type: 'tex', timing: 'must' },
-			{ name: 'matCapCloud', path: './assets/textures/matcap2.png', type: 'tex', timing: 'must' },
-			{ name: 'matCapOrange', path: './assets/textures/matcap_orange.png', type: 'tex', timing: 'must' },
+			
 			{ name: 'noise', path: './assets/textures/noise.png', type: 'tex', timing: 'sub', onLoad( value: THREE.Texture ) {
 
 				value.wrapS = THREE.RepeatWrapping;
 				value.wrapT = THREE.RepeatWrapping;
 
 			}, },
-			{ name: 'display', path: './assets/textures/display.png', type: 'tex', timing: 'sub' },
+			
 			{ name: 'human', path: './assets/textures/humans/human.png', type: 'tex', timing: 'sub' },
 			{ name: 'outro', path: './assets/textures/outro-text.png', type: 'tex', timing: 'sub', onLoad: ( tex: THREE.Texture ) => {
 
@@ -205,14 +203,7 @@ export class MainScene extends ORE.BaseLayer {
 				tex.wrapT = THREE.RepeatWrapping;
 
 			} },
-			{ name: 'random', path: './assets/textures/random.png', type: 'tex', timing: 'sub', onLoad: ( tex: THREE.Texture ) => {
-
-				tex.wrapS = THREE.RepeatWrapping;
-				tex.wrapT = THREE.RepeatWrapping;
-				tex.minFilter = THREE.NearestFilter;
-				tex.magFilter = THREE.NearestFilter;
-
-			} },
+			
 			{ name: 'signpen', path: './assets/textures/signpen.png', type: 'tex', timing: 'sub' },
 			{ name: 'sec3Particle', path: './assets/textures/pattern.jpg', type: 'tex', timing: 'sub' },
 			{ name: 'sec1bg', path: './assets/textures/sec1bg.jpg', type: 'tex', timing: 'sub', onLoad: ( t: THREE.Texture ) => {
