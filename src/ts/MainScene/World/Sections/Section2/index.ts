@@ -37,8 +37,7 @@ export class Section2 extends Section {
 		this.bakuParam2.rotateSpeed = - 0.09;
 		this.bakuParam.materialType = 'glass';
 		this.bakuParam2.materialType = 'glass';
-		console.log( this.bakuParam );
-		console.log( this.bakuParam2 );
+		
 		/*-------------------------------
 			Light
 		-------------------------------*/

@@ -250,7 +250,7 @@ export class Baku2 extends THREE.Object3D {
 		this.animator.animate( 'bakuTransparent2', type == 'glass' ? 1 : 0, 1 );
 		this.animator.animate( 'bakuLine2', type == 'line' ? 1 : 0, 1 );
 		this.animator.animate( 'bakuRimLight2', type == 'dark' ? 0.0 : 1.0 );
-		this.animator.animate( 'opacity', type == 'glass' ? 0.2 : 1.0, 1 );
+		
 
 	}
 

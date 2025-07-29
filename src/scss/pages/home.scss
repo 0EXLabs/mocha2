@@ -351,6 +351,7 @@ body {
 }
 
 .info-row {
+	pointer-events: none;
 	display: flex;
 	justify-content: center;
 	gap: 150px;
@@ -388,11 +389,68 @@ body {
 	  font-size: 2.5rem; /* Bigger font size for the number and percentage */
 	  text-align: center; /* Center align text */
 	  @include sp {
-		font-size: 2.0rem; /* Smaller font size for percentage on mobile */
+		font-size: 1.8rem; /* Smaller font size for percentage on mobile */
 	  }
 	  br {
 		display: block;
 	  }
+	}
+}.section4{
+	display: flex;
+	margin-left: 100px ;
+	
+	flex-direction: column;
+	justify-content: flex-end;  /* vertical: bottom */
+	align-items: flex-start;    /* horizontal: left */
+	padding-bottom: 50px;
+	&[data-visible="true"] {
+		.info-sc4 {
+			opacity: 1;
+		}
+	}
+	@include sp{
+		margin-left: 0px ;
+		align-items:center;
+	}
+	@media only screen and (max-width: 900px) and (orientation: landscape) {
+		padding-bottom: 10px;
+		
+	}
+}
+
+.info-sc4 {
+	
+   
+    background-color: white;
+    color: black; /* Assuming text inside should be black for contrast */
+    padding: 15px;
+    border-radius: 15px; /* Adjust as needed for desired roundness */
+	border: 2px solid black;
+	border-color: #000000 ;
+    z-index: 100; /* Ensure it's on top of other content */
+    width: 490px; /* Example width, adjust as necessary */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow */
+	font-family: 'gomocha', sans-serif;
+	
+	pointer-events: none;
+	font-size: 1.5rem;
+    @include sp {
+        bottom: 60px; /* Adjusted for 50px mobile footer + 10px margin */
+		font-size: 1.1rem;
+		width: 330px;
+		left: 5%;
+		
+    }
+	opacity: 0;
+	// Explicit media query for small screens in portrait orientation
+	@media only screen and (max-width: 800px) and (orientation: portrait) {
+		font-size: 1.1rem; // Mobile portrait font size
+	}
+
+	// Explicit media query for small screens in landscape orientation
+	@media only screen and (max-width: 900px) and (orientation: landscape) {
+		font-size: 0.9rem; // Adjusted smaller font size for mobile landscape
+
 	}
 }
 
@@ -404,7 +462,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 0;
-    
+    pointer-events: none;
     opacity: 0;
     transition: opacity 1.0s;
     
@@ -445,7 +503,7 @@ body {
         position: relative;
         // height: 50vh; // This might limit the number of lines visible if you want free flow
         max-height: 100%;
-        
+        pointer-events: none;
         display: inline-block; // Make p tags block-level to ensure they take full width and stack
         padding: 10px 10px; // Adjust padding as needed
         z-index: 0;
@@ -682,7 +740,7 @@ body {
 	}
 	
 	&-link {
-		position: absolute;
+		position: relative;
 		left: 50%;
 		bottom: 80px;
 		transform: translateX(-50%);

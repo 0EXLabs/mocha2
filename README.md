@@ -1,5 +1,7 @@
-# Junni is
+# MilkMocha
 ![]("./../screenshot/screenshot.jpg)
+
+
 # Install
 
 packages

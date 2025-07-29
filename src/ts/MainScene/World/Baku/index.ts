@@ -252,7 +252,7 @@ export class Baku extends THREE.Object3D {
         this.animator.animate( 'bakuTransparent', type == 'glass' ? 1 : 0, 1 );
         this.animator.animate( 'bakuLine', type == 'line' ? 1 : 0, 1 );
         this.animator.animate( 'bakuRimLight', type == 'dark' ? 0.0 : 1.0 );
-        this.animator.animate( 'opacity', type == 'glass' ? 0.2 : 1.0, 1 );
+       
 
     }
 
@@ -424,7 +424,7 @@ export class Baku extends THREE.Object3D {
             this.animationMixer.addEventListener( 'finished', onFinished );
 
         }
-		console.log("jumped")
+		
         setTimeout(() => {
             this.dispatchEvent( {
                 type: 'jump'

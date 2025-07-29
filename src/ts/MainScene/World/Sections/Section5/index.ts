@@ -82,10 +82,10 @@ export class Section5 extends Section {
         this.add( scene );
 
         // Log the scene and its children for debugging
-        console.log("GLTF Scene:", scene);
+        
         scene.traverse((obj) => {
             if (obj.isObject3D) {
-                console.log("Object in GLTF scene:", obj.name);
+                
             }
         });
 

@@ -24,9 +24,11 @@ export class Section4 extends Section {
 
 	private textIndex: number = 0;
 	private textList: string[] = [
-		'love',
-		"heart",
-		"care",
+		'metaverse',
+		"gaming",
+		"merch",
+		"collectibles",
+		"experiences",
 		
 	];
 
