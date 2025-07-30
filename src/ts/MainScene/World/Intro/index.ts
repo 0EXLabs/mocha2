@@ -154,6 +154,7 @@ if (plane2 && plane2.isMesh) {
 		this.text2 = new IntroText( this.scene.getObjectByName( 'Text2' ) as THREE.Object3D, this.commonUniforms, 'TO', document.querySelector( '.intro-text-item.introText2' ) as HTMLElement );
 		this.text3 = new IntroText( this.scene.getObjectByName( 'Text3' ) as THREE.Object3D, this.commonUniforms, 'YOU', document.querySelector( '.intro-text-item.introText3' ) as HTMLElement );
 
+		
 		/*-------------------------------
 			Scene
 		-------------------------------*/

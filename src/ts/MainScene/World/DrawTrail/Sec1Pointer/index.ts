@@ -17,7 +17,7 @@ export class Sec1Pointer {
 			uTex: {
 				value: baseMat.map
 			},
-			uMatCapTex: window.gManager.assetManager.getTex( 'matCap' ),
+			
 		} );
 
 		let mat = new THREE.ShaderMaterial( {
